@@ -20,10 +20,9 @@ form {
 }
 
 .group {
- display: flex;
- flex-direction: column;
- width: 50%;
- margin:15px;
+    display: flex;
+    width: 50%;
+    margin:15px;
 }
 
 .typesInput{
@@ -50,4 +49,40 @@ a:link
 { 
  text-decoration:none; 
 } 
+
+input {
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+    border: 1px solid #ced4da;
+    color: #495057;
+}
+
+input:focus {
+    box-shadow: 0 0 1pt 2pt rgba(0,123,255,.35);
+    outline: none;
+    border: 1px solid rgba(0,123,255,.35);
+}
+
+input[type=radio]:focus {
+    border: 0px;
+    box-shadow: none;
+}
+
+
+input[type=text] {
+    align-self: stretch;
+}
+
+.rowRadio {
+    width: 100%;
+    padding: 5px 0px 0px 15px;
+}
+
+label {
+    margin-right: 10px;
+    display: flex;
+    justify-content: baseline;
+    align-self: center;
+    width: 25%;
+}
 
