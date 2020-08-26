@@ -1,0 +1,29 @@
+th {
+    border-top: 1px solid #dee2e6;
+    border-bottom: 2px solid #dee2e6;
+    margin: 0px;
+    padding: 10px;
+}
+
+td {
+    border-bottom: 1px solid #dee2e6;
+    padding: 10px;
+    margin: 0px;
+}
+
+.list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(0,0,0,.05);
+  }

@@ -12,8 +12,9 @@
         <div class="list">
             <h1>List</h1>
 
-            <table class="row">
-                <tr>
+            <table>
+            <tbody>
+            <tr>
                     <th>Nome/Razão Social</th>
                     <th>CPF/CNPJ</th>
                     <th>Email</th>
@@ -87,7 +88,21 @@
                     }
                     
                     $conn = null;
+                    echo "
+                        <script type=\"text/javascript\">
+                            const cells = document.getElementsByTagName('td');
+                            for (let cell of cells) {
+                                if(cell.innerHTML == ' - '){
+                                    cell.style.textAlign  = 'center';
+                                }
+                            }
+                        </script>
+                    ";
                 ?>
+            </tbody>
+            <script type=\"text/javascript\">
+                
+            </script>
             </table>
         </div>    
     </div>
