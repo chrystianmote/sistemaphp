@@ -35,7 +35,7 @@ form {
 }
 
 .typesInputTitle {
-    margin: 5px 0px 0px 15px;
+    margin: 5px 0 0 15px;
 }
 
 .button {
@@ -64,7 +64,7 @@ input:focus {
 }
 
 input[type=radio]:focus {
-    border: 0px;
+    border: 0;
     box-shadow: none;
 }
 
@@ -75,7 +75,7 @@ input[type=text] {
 
 .rowRadio {
     width: 100%;
-    padding: 5px 0px 0px 15px;
+    padding: 5px 0 0 15px;
 }
 
 label {

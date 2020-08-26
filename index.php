@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Cadastro</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <?php
@@ -66,11 +68,11 @@ if (isset($_POST['salvar'])) {
             </div>
             <div class="rowRadio">
                 <input class="radio" id="cpf" type="radio" name="category" checked>
-                <span>Pessoa Física</span>
+                <label style="display: inline" for="cpf" class="typesInputTitle">Pessoa Física</label>
             </div>
             <div class="rowRadio">
                 <input class="radio" id="cnpj" type="radio" name="category">
-                <span>Pessoa Jurídica</span>
+                <label style="display: inline" for="cnpj" class="typesInputTitle">Pessoa Juridica</label>
             </div>
             <div class="row">
                 <div class="group">
@@ -144,22 +146,37 @@ if (isset($_POST['salvar'])) {
         </form>
     </div>
 
-    <script>
-        var category = null;
-        $("input[name='category']").click(function() {
-            category = this.value;
-            if(this.id == 'cpf') {
-               document.getElementById('nome').innerHTML = 'Nome:';
-               document.getElementById('documento').innerHTML = 'Pessoa Física:';
-               $('input[name=nome]').attr('placeholder','Nome');
-               $('input[name=documento]').attr('placeholder','Pessoa Física');
-            } else {
-                document.getElementById('nome').innerHTML = 'Razão Social:';
-                document.getElementById('documento').innerHTML = 'Pessoa Júridica:';
-                $('input[name=nome]').attr('placeholder','Razão Social');
-                $('input[name=documento]').attr('placeholder','Pessoa Júridica');
-            }
+    <script type="text/javascript">
+
+        jQuery(document).ready(function ($){
+
+            var category = null;
+            $("input[name='category']").click(function(e) {
+
+                category = this.value;
+                if(this.id == 'cpf') {
+
+                    $('#nome').html('Nome:');
+                    //document.getElementById('nome').innerHTML = 'Nome:';
+                    document.getElementById('documento').innerHTML = 'Pessoa Física:';
+                    $('input[name=nome]').attr('placeholder','Nome');
+                    $('input[name=documento]').attr('placeholder','Pessoa Física');
+                } else {
+                    document.getElementById('nome').innerHTML = 'Razão Social:';
+                    document.getElementById('documento').innerHTML = 'Pessoa Júridica:';
+                    $('input[name=nome]').attr('placeholder','Razão Social');
+                    $('input[name=documento]').attr('placeholder','Pessoa Júridica');
+                }
+            });
+
+
+
+
         });
+
+
+
+
     </script>
 </body>
 </html>
