@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="list.css">
     <title>List</title>
 </head>
 <body>
@@ -11,7 +12,18 @@
         <div class="list">
             <h1>List</h1>
 
-            <div class="row">
+            <table class="row">
+                <tr>
+                    <th>Nome/Razão Social</th>
+                    <th>CPF/CNPJ</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Logradouro</th>
+                    <th>Número</th>
+                    <th>Bairro</th>
+                    <th>Cidade</th>
+                    <th>UF</th>
+                </tr>
                 <?php
                     $servername = "localhost";
                     $username = "root";
@@ -24,33 +36,50 @@
                         $pessoas = $conn->query("SELECT * FROM pessoa;");
                         $empresas = $conn->query("SELECT * FROM empresa;");
                         // (razao_social, cnpj, email, telefone, logradouro, numero, bairro, cidade, uf
-                        echo "Lista de Pessoas: <br/><br/>";
                         while ($linha = $pessoas->fetch(PDO::FETCH_ASSOC)) {
-                            echo "Nome: {$linha['nome']} - CPF: {$linha['cpf']} - Email: {$linha['email']} - ";
+                            echo "<tr>";
                             
-                            $linha['telefone'] = $linha['telefone'] ? $linha['telefone'] : 'N/A';
-                            $linha['logradouro'] = $linha['logradouro'] ? $linha['logradouro'] : 'N/A';
-                            $linha['numero'] = $linha['numero'] ? $linha['numero'] : 'N/A';
-                            $linha['bairro'] = $linha['bairro'] ? $linha['bairro'] : 'N/A';
-                            $linha['cidade'] = $linha['cidade'] ? $linha['cidade'] : 'N/A';
-                            $linha['uf'] = $linha['uf'] ? $linha['uf'] : 'N/A';
+                            echo "<td>{$linha['nome']}</td>";
+                            echo "<td>{$linha['cpf']}</td>";
+                            echo "<td>{$linha['email']}</td>";
+
+                            $linha['telefone'] = $linha['telefone'] ? $linha['telefone'] : ' - ';
+                            $linha['logradouro'] = $linha['logradouro'] ? $linha['logradouro'] : ' - ';
+                            $linha['numero'] = $linha['numero'] ? $linha['numero'] : ' - ';
+                            $linha['bairro'] = $linha['bairro'] ? $linha['bairro'] : ' - ';
+                            $linha['cidade'] = $linha['cidade'] ? $linha['cidade'] : ' - ';
+                            $linha['uf'] = $linha['uf'] ? $linha['uf'] : ' - ';
                             
-                            echo "Telefone: {$linha['telefone']} - Logradouro:{$linha['logradouro']} - Nº:{$linha['numero']} - ";
-                            echo "Bairro: {$linha['bairro']} - Cidade:{$linha['cidade']} - UF:{$linha['uf']}<br /><br />";
+                            echo "<td>{$linha['telefone']}</td>";
+                            echo "<td>{$linha['logradouro']}</td>";
+                            echo "<td>{$linha['numero']}</td>";
+                            echo "<td>{$linha['bairro']}</td>";
+                            echo "<td>{$linha['cidade']}</td>";
+                            echo "<td>{$linha['uf']}</td>";
+                            
+                            echo "</tr>";
                         }
-                        echo "Lista de Empresas: <br/><br/>";
+
                         while ($linha = $empresas->fetch(PDO::FETCH_ASSOC)) {
-                            echo "Razão Social: {$linha['razao_social']} - CNPJ: {$linha['cnpj']} - Email: {$linha['email']} - ";
+                            echo "<tr>";
+
+                            echo "<td>{$linha['razao_social']}</td>";
+                            echo "<td>{$linha['cnpj']}</td>";
+                            echo "<td>{$linha['email']}</td>";
                             
-                            $linha['telefone'] = $linha['telefone'] ? $linha['telefone'] : 'N/A';
-                            $linha['logradouro'] = $linha['logradouro'] ? $linha['logradouro'] : 'N/A';
-                            $linha['numero'] = $linha['numero'] ? $linha['numero'] : 'N/A';
-                            $linha['bairro'] = $linha['bairro'] ? $linha['bairro'] : 'N/A';
-                            $linha['cidade'] = $linha['cidade'] ? $linha['cidade'] : 'N/A';
-                            $linha['uf'] = $linha['uf'] ? $linha['uf'] : 'N/A';
+                            $linha['telefone'] = $linha['telefone'] ? $linha['telefone'] : ' - ';
+                            $linha['logradouro'] = $linha['logradouro'] ? $linha['logradouro'] : ' - ';
+                            $linha['numero'] = $linha['numero'] ? $linha['numero'] : ' - ';
+                            $linha['bairro'] = $linha['bairro'] ? $linha['bairro'] : ' - ';
+                            $linha['cidade'] = $linha['cidade'] ? $linha['cidade'] : ' - ';
+                            $linha['uf'] = $linha['uf'] ? $linha['uf'] : ' - ';
                             
-                            echo "Telefone: {$linha['telefone']} - Logradouro:{$linha['logradouro']} - Nº:{$linha['numero']} - ";
-                            echo "Bairro: {$linha['bairro']} - Cidade:{$linha['cidade']} - UF:{$linha['uf']}<br /><br />";
+                            echo "<td>{$linha['telefone']}</td>";
+                            echo "<td>{$linha['logradouro']}</td>";
+                            echo "<td>{$linha['numero']}</td>";
+                            echo "<td>{$linha['bairro']}</td>";
+                            echo "<td>{$linha['cidade']}</td>";
+                            echo "<td>{$linha['uf']}</td>";
                         }
                         
                     } catch(PDOException $e) {
@@ -59,7 +88,7 @@
                     
                     $conn = null;
                 ?>
-            </div>
+            </table>
         </div>    
     </div>
 </body>
