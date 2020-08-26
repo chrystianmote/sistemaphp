@@ -41,7 +41,13 @@
                             echo "<tr>";
                             
                             echo "<td>{$linha['nome']}</td>";
-                            echo "<td>{$linha['cpf']}</td>";
+
+                            $cpf1 = substr($linha['cpf'], 0, 3);
+                            $cpf2 = substr($linha['cpf'], 3, 3);
+                            $cpf3 = substr($linha['cpf'], 6, 3);
+                            $cpf4 = substr($linha['cpf'], 9);
+
+                            echo "<td>$cpf1.$cpf2.$cpf3-$cpf4</td>";
                             echo "<td>{$linha['email']}</td>";
 
                             $linha['telefone'] = $linha['telefone'] ? $linha['telefone'] : ' - ';
@@ -65,7 +71,14 @@
                             echo "<tr>";
 
                             echo "<td>{$linha['razao_social']}</td>";
-                            echo "<td>{$linha['cnpj']}</td>";
+
+                            $cnpj1 = substr($linha['cnpj'], 0, 2);
+                            $cnpj2 = substr($linha['cnpj'], 2, 3);
+                            $cnpj3 = substr($linha['cnpj'], 5, 3);
+                            $cnpj4 = substr($linha['cnpj'], 8, 4);
+                            $cnpj5 = substr($linha['cnpj'], 12);
+                            
+                            echo "<td>$cnpj1.$cnpj2.$cnpj3/$cnpj4-$cnpj5</td>";
                             echo "<td>{$linha['email']}</td>";
                             
                             $linha['telefone'] = $linha['telefone'] ? $linha['telefone'] : ' - ';
