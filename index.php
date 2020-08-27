@@ -11,6 +11,9 @@
 </head>
 <body>
 <?php
+
+include "BDUtil.php";
+
 if (isset($_POST['salvar'])) {
 
     $nome = $_POST['nome'];
@@ -34,8 +37,17 @@ if (isset($_POST['salvar'])) {
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         if (strlen($documento) > 11) {
-            $sql = "INSERT INTO empresa (razao_social, cnpj, email, telefone, logradouro, numero, bairro, cidade, uf)
-            VALUES ('$nome' , '$documento', '$email', '$celular', '$endereco', '$numero',' $bairro', '$cidade', '$uf')";
+
+            $id = BDUtil::SetPessoas($nome , $documento, $email, $celular, $endereco, $numero, $bairro, $cidade, $uf);
+
+            if($id > 0){
+
+            }
+            else{
+
+            }
+
+
             echo "
                 <script type=\"text/javascript\">
                 alert('Nova Empresa cadastrada');
