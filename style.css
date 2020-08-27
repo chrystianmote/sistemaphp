@@ -1,35 +1,3 @@
-/* .page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.typesInput{
-    display: flex;
-    flex-direction: column;
-    border: 1px solid black;
-    width: 100%;
-    border-radius: 20px;
-    margin: 10px;
-}
-
-.typesInputTitle {
-    margin: 5px 0 0 15px;
-}
-
-.button {
-    padding: 5px;
-    background-color: #00BFFF;
-    margin-left: 10px;
-    border-radius: 20px;
-}
-
-a:link 
-{ 
- text-decoration:none; 
-} 
-*/
-
 form {
     width: 80%;
     border: 1px solid black;
@@ -38,6 +6,3 @@ form {
 h1 {
     text-align: center;
 }
-
-
-

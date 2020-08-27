@@ -24,12 +24,12 @@ if (isset($_POST['salvar'])) {
     $nome = $_POST['nome'];
     $documento = $_POST['documento'];
     $email = $_POST['email'];
-    $celular = $_POST['celular'];
-    $endereco = $_POST['endereco'];
-    $numero = $_POST['numero'];
-    $bairro = $_POST['bairro'];
-    $cidade = $_POST['cidade'];
-    $uf = $_POST['uf'];
+    $telefone = $_POST['telefone'] ? $_POST['telefone'] : "";
+    $endereco = $_POST['endereco'] ? $_POST['endereco'] : "";
+    $numero = !empty($_POST['numero']) ? $_POST['numero'] : 0;
+    $bairro = $_POST['bairro'] ? $_POST['bairro'] : "";
+    $cidade = $_POST['cidade'] ? $_POST['cidade'] : "";
+    $uf = $_POST['uf'] ? $_POST['uf'] : "";
 
     $servername = "localhost";
     $username = "root";
@@ -37,44 +37,54 @@ if (isset($_POST['salvar'])) {
     $dbname = "cadastro";
 
     try {
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        if (strlen($documento) > 11) {
-
-            $id = BDUtil::SetPessoas($nome , $documento, $email, $celular, $endereco, $numero, $bairro, $cidade, $uf);
-
+        if (strlen($documento) == 18){
+            $id = BDUtil::SetEmpresa($nome , $documento, $email, $telefone, $endereco, $numero, $bairro, $cidade, $uf);
             if($id > 0){
-
+                echo "
+                    <script type=\"text/javascript\">
+                    alert('Nova Empresa cadastrada');
+                    </script>
+                ";
             }
             else{
-
+                echo "
+                    <script type=\"text/javascript\">
+                    alert('Não foi possível cadastrar a nova empresa');
+                    </script>
+                ";
             }
-
-
-            echo "
+        } else if(strlen($documento) == 14) {
+            $id = BDUtil::SetPessoa($nome , $documento, $email, $telefone, $endereco, $numero, $bairro, $cidade, $uf);
+            if($id > 0){
+                echo "
                 <script type=\"text/javascript\">
-                alert('Nova Empresa cadastrada');
+                alert('Nova Pessoa cadastrada');
                 </script>
             ";
+            }
+            else{
+                echo "
+                <script type=\"text/javascript\">
+                alert('Não foi possível cadastrada a nova Pessoa');
+                </script>
+            ";
+            }
         } else {
-            $sql = "INSERT INTO pessoa (nome, cpf, email, telefone, logradouro, numero, bairro, cidade, uf)
-            VALUES ('$nome' , '$documento', '$email', '$celular', '$endereco', '$numero',' $bairro', '$cidade', '$uf')";
             echo "
             <script type=\"text/javascript\">
-            alert('Nova Pessoa cadastrada');
+            alert('Documento invalido');
             </script>
-        ";
+            ";
         }
+        $conn = null;
         // use exec() because no results are returned
-        $conn->exec($sql);
+        
 
     } catch (PDOException $e) {
         echo "<br>" . $e->getMessage();
     }
 
-    $conn = null;
+    
 }
 ?>
 
@@ -134,7 +144,7 @@ if (isset($_POST['salvar'])) {
                         <div class="row">
                             <label for="email" class="col-2 col-form-label">Gmail:</label>
                             <div class="col-10 pl-2">
-                                <input type="text" name="email" class="form-control" id="email" placeholder="E-mail">
+                                <input type="email" name="email" class="form-control" id="email" placeholder="E-mail">
                             </div>
                         </div>
                     </div>
@@ -203,10 +213,9 @@ if (isset($_POST['salvar'])) {
 
             <div class="form-group row">
                 <div class="col-sm-6 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <button type="submit" name="salvar" class="btn btn-primary">Cadastrar</button>
                 </div>
                 <div class="col-sm-6 d-flex justify-content-start">
-                    <button type="submit" class="btn btn-primary">Listar</button>
                 </div>
             </div>
         </form>       
@@ -215,7 +224,11 @@ if (isset($_POST['salvar'])) {
     <script type="text/javascript">
 
         jQuery(document).ready(function ($){
+
             $("#documento").mask('000.000.000-00');
+            $("#telefone").mask('(00) 00000-0000');
+            $("#numero").mask('#');
+
             $("input[type='radio']").click(function(e) {
                 if(this.id == 'cpf') {
                     

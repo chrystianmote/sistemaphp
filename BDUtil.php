@@ -25,7 +25,7 @@ class BDUtil
 
     }
 
-    public static function SetPessoas($nome , $documento, $email, $celular, $endereco, $numero, $bairro, $cidade, $uf)
+    public static function SetEmpresa($nome , $documento, $email, $celular, $endereco, $numero = 0 , $bairro, $cidade, $uf)
     {
 
         $conn = self::OpenConnection();
@@ -33,24 +33,46 @@ class BDUtil
         try {
 
             $sql = "INSERT INTO empresa (razao_social, cnpj, email, telefone, logradouro, numero, bairro, cidade, uf)
-            VALUES ('$nome' , '$documento', '$email', '$celular', '$endereco', '$numero',' $bairro', '$cidade', '$uf')";
+            VALUES ('$nome' , '$documento', '$email', '$celular', '$endereco', $numero,' $bairro', '$cidade', '$uf')";
 
-            $conn->beginTransaction();
             $resultado = $conn->query($sql);
 
             if ($resultado->rowCount() == 0) {
-                $conn->rollBack();
                 return false;
             } else {
-                $conn->commit();
+
                 $idpessoa = $conn->lastInsertId();
                 return $idpessoa;
             }
 
         } catch (Exception $e) {
+            return $e->getMessage();
+        }
 
-            $conn->rollBack();
-            return $e->getTraceAsString();
+    }
+
+    public static function SetPessoa($nome , $documento, $email, $celular, $endereco, $numero = 0 , $bairro, $cidade, $uf)
+    {
+
+        $conn = self::OpenConnection();
+
+        try {
+
+            $sql = "INSERT INTO pessoa (nome, cpf, email, telefone, logradouro, numero, bairro, cidade, uf)
+            VALUES ('$nome' , '$documento', '$email', '$celular', '$endereco', $numero,' $bairro', '$cidade', '$uf')";
+
+            $resultado = $conn->query($sql);
+
+            if ($resultado->rowCount() == 0) {
+                return false;
+            } else {
+
+                $idpessoa = $conn->lastInsertId();
+                return $idpessoa;
+            }
+
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
     }
@@ -82,7 +104,7 @@ class BDUtil
         } catch (Exception $e) {
 
             $resp['erro'] = true;
-            $resp['msg'] = $e->getTraceAsString();
+            $resp['msg'] = $e->getMessage();
 
           
         } finally {
