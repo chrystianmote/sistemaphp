@@ -1,28 +1,7 @@
-.page {
+/* .page {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-form {
-    border: 1px solid black;
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 25px;
-}
-
-.row {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.group {
-    display: flex;
-    width: 50%;
-    margin:15px;
 }
 
 .typesInput{
@@ -49,40 +28,16 @@ a:link
 { 
  text-decoration:none; 
 } 
+*/
 
-input {
-    padding: .375rem .75rem;
-    border-radius: .25rem;
-    border: 1px solid #ced4da;
-    color: #495057;
+form {
+    width: 80%;
+    border: 1px solid black;
 }
 
-input:focus {
-    box-shadow: 0 0 1pt 2pt rgba(0,123,255,.35);
-    outline: none;
-    border: 1px solid rgba(0,123,255,.35);
-}
-
-input[type=radio]:focus {
-    border: 0;
-    box-shadow: none;
+h1 {
+    text-align: center;
 }
 
 
-input[type=text] {
-    align-self: stretch;
-}
-
-.rowRadio {
-    width: 100%;
-    padding: 5px 0 0 15px;
-}
-
-label {
-    margin-right: 10px;
-    display: flex;
-    justify-content: baseline;
-    align-self: center;
-    width: 25%;
-}
 
