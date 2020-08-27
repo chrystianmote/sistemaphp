@@ -1,35 +1,3 @@
-<?php
-
-function mascararDocumentos($str)
-{
-
-    if (strlen($str) == 11) {
-        $cpf1 = substr($str, 0, 3);
-        $cpf2 = substr($str, 3, 3);
-        $cpf3 = substr($str, 6, 3);
-        $cpf4 = substr($str, 9);
-
-        $doc = $cpf1 . "." . $cpf2 . "." . $cpf3 . "-" . $cpf4;
-
-    } else {
-        $cnpj1 = substr($str, 0, 2);
-        $cnpj2 = substr($str, 2, 3);
-        $cnpj3 = substr($str, 5, 3);
-        $cnpj4 = substr($str, 8, 4);
-        $cnpj5 = substr($str, 12);
-
-        $doc = $cnpj1 . "." . $cnpj2 . "." . $cnpj3 . "/" . $cnpj4 . "-" . $cnpj5;
-
-    }
-
-    return $doc;
-
-
-}
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,15 +44,12 @@ function mascararDocumentos($str)
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $pessoas = $conn->query("SELECT * FROM pessoa;");
                 $empresas = $conn->query("SELECT * FROM empresa;");
-                // (razao_social, cnpj, email, telefone, logradouro, numero, bairro, cidade, uf
+
                 while ($linha = $pessoas->fetch(PDO::FETCH_ASSOC)) {
                     echo "<tr>";
 
                     echo "<td>{$linha['nome']}</td>";
-
-                    $cpf = mascararDocumentos($linha['cpf']);
-
-                    echo "<td>$cpf</td>";
+                    echo "<td>{$linha['cpf']}</td>";
                     echo "<td>{$linha['email']}</td>";
 
                     $linha['telefone'] = $linha['telefone'] ? $linha['telefone'] : ' - ';
@@ -108,10 +73,7 @@ function mascararDocumentos($str)
                     echo "<tr>";
 
                     echo "<td>{$linha['razao_social']}</td>";
-
-                    $cnpj = mascararDocumentos($linha['cnpj']);
-
-                    echo "<td>$cnpj</td>";
+                    echo "<td>{$linha['cnpj']}</td>";
                     echo "<td>{$linha['email']}</td>";
 
                     $linha['telefone'] = $linha['telefone'] ? $linha['telefone'] : ' - ';
@@ -146,9 +108,6 @@ function mascararDocumentos($str)
                     ";
             ?>
             </tbody>
-            <script type=\"text/javascript\">
-
-            </script>
         </table>
     </div>
 </div>

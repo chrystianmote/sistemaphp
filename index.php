@@ -216,6 +216,7 @@ if (isset($_POST['salvar'])) {
                     <button type="submit" name="salvar" class="btn btn-primary">Cadastrar</button>
                 </div>
                 <div class="col-sm-6 d-flex justify-content-start">
+                    <a class="btn btn-primary" href="list.php" role="button">Listar</a>
                 </div>
             </div>
         </form>       
@@ -227,7 +228,6 @@ if (isset($_POST['salvar'])) {
 
             $("#documento").mask('000.000.000-00');
             $("#telefone").mask('(00) 00000-0000');
-            $("#numero").mask('#');
 
             $("input[type='radio']").click(function(e) {
                 if(this.id == 'cpf') {
@@ -246,8 +246,7 @@ if (isset($_POST['salvar'])) {
                     $("#documento").val('');
                     $("#documento").mask('00.000.000/0000-00');
                 }
-            });
-            
+            });            
         });
     </script>
 </body>
