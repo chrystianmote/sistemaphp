@@ -45,6 +45,9 @@ function cep() {
 
 function mascaraEmail() {
     $("#email").on('blur', function() {
+        if($(this).val() == "") {
+            return;
+        }
         const email = $(this).val().split("@");
         if(email.length != 2 || email[1] == "") {
             $(this).val("");
@@ -52,7 +55,6 @@ function mascaraEmail() {
         } else {
             if(email[1].includes('.')) {
                const verificaPontos = email[1].split(".").find(element => element == "");
-               console.log(verificaPontos);
                 if(verificaPontos != undefined) {
                     $(this).val("");
                     alert('Email inválido');
@@ -71,11 +73,41 @@ function SetMascaras() {
     $("#cep").mask('00000-000');
 }
 
+function validarCPF() {
+    $("#documento").on('blur', function() {
+        let cpf = $(this).val();
+        if(cpf.length != 14) {
+            alert('CPF inválido!');
+        }
+        while(cpf.includes('.')) {
+            cpf = cpf.replace('.', '');
+        }
+        cpf = cpf.replace('-', '');
+        const digitos = cpf.substring(0, 9);
+        const verificadores = cpf.substring(9);
+        valdiaPrimeiroDigito(digitos.split(''), verificadores[1]);
+    });
+}
+
+function valdiaPrimeiroDigito(digitos, primeiroD) {
+    let result = 0;
+    digitos.forEach((digito, index) => {
+        result += digito * (index + 1);
+    });
+    if((result % 11) == 10 && primeiroD == 0) {
+        return true;
+    } else if((result % 11) == primeiroD) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 jQuery(document).ready(function ($){
 
     SetMascaras();
     mudarNomeCampos();
     cep();
     mascaraEmail();
-    
+    validarCPF();
 });
