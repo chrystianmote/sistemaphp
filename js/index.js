@@ -43,13 +43,39 @@ function cep() {
     })
 }
 
-jQuery(document).ready(function ($){
+function mascaraEmail() {
+    $("#email").on('blur', function() {
+        const email = $(this).val().split("@");
+        if(email.length != 2 || email[1] == "") {
+            $(this).val("");
+            alert('Email inválido');
+        } else {
+            if(email[1].includes('.')) {
+               const verificaPontos = email[1].split(".").find(element => element == "");
+               console.log(verificaPontos);
+                if(verificaPontos != undefined) {
+                    $(this).val("");
+                    alert('Email inválido');
+                }
+            } else {
+                $(this).val("");
+                alert('Email inválido');
+            }
+        }
+    });
+}
 
+function SetMascaras() {
     $("#documento").mask('000.000.000-00');
     $("#telefone").mask('(00) 00000-0000');
     $("#cep").mask('00000-000');
+}
 
+jQuery(document).ready(function ($){
+
+    SetMascaras();
     mudarNomeCampos();
     cep();
+    mascaraEmail();
     
 });
