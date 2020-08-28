@@ -119,15 +119,15 @@ if (isset($_POST['salvar'])) {
             <div class="form-group row">
                 <div class="col-6">
                     <div class="row">
-                        <label for="nome" class="col-2 col-form-label">Nome:</label>
-                        <div class="col-10 pl-2">
+                        <label for="nome" class="col-4 col-form-label lbname">Nome:</label>
+                        <div class="col-8 pl-2">
                             <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome">
                         </div>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="row">
-                        <label for="documento" class="col-2 col-form-label">CPF:</label>
+                        <label for="documento" class="col-2 col-form-label lbdocumento">CPF:</label>
                         <div class="col-10 pl-2">
                             <input type="text" name="documento" class="form-control" id="documento" placeholder="CPF">
                         </div>
@@ -166,12 +166,22 @@ if (isset($_POST['salvar'])) {
                 <div class="row form-group">
                     <div class="col-6">
                         <div class="row">
+                            <label for="cep" class="col-2 col-form-label">CEP:</label>
+                            <div class="col-10 pl-2">
+                                <input type="text" name="cep" class="form-control" id="cep" placeholder="CEP">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
                             <label for="endereco" class="col-3 col-form-label">Logradouro:</label>
                             <div class="col-9 pl-2">
                                 <input type="text" name="endereco" class="form-control" id="endereco" placeholder="Logradouro">
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row form-group">
                     <div class="col-6">
                         <div class="row">
                             <label for="numero" class="col-2 col-form-label">Número:</label>
@@ -180,8 +190,6 @@ if (isset($_POST['salvar'])) {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row form-group">
                     <div class="col-6">
                         <div class="row">
                             <label for="bairro" class="col-2 col-form-label">Bairro:</label>
@@ -190,6 +198,8 @@ if (isset($_POST['salvar'])) {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-6">
                         <div class="row">
                             <label for="cidade" class="col-2 col-form-label">Cidade:</label>
@@ -198,8 +208,6 @@ if (isset($_POST['salvar'])) {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-6">
                         <div class="row">
                             <label for="uf" class="col-2 col-form-label">UF:</label>
@@ -228,19 +236,19 @@ if (isset($_POST['salvar'])) {
 
             $("#documento").mask('000.000.000-00');
             $("#telefone").mask('(00) 00000-0000');
+            $("#cep").mask('000000-000');
 
             $("input[type='radio']").click(function(e) {
                 if(this.id == 'cpf') {
-                    
-                    $("#nome").html("Nome:");
-                    $("#documento").html("CPF:");
+                    $(".lbname").html("Nome:");
+                    $(".lbdocumento").html("CPF:");
                     $('input[name=nome]').attr('placeholder','Nome');
                     $('input[name=documento]').attr('placeholder','CPF');
                     $("#documento").mask('000.000.000-00');
                 } else {
-
-                    $("#nome").html("Razão Social:");
-                    $("#documento").html("CNPJ:");
+                    
+                    $(".lbname").html("Razão Social:");
+                    $(".lbdocumento").html("CNPJ:");
                     $('input[name=nome]').attr('placeholder','Razão Social');
                     $('input[name=documento]').attr('placeholder','CNPJ');
                     $("#documento").val('');
