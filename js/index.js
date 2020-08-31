@@ -84,25 +84,6 @@ function SetMascaras() {
     $("#documento").mask('000.000.000-00');
     $("#telefone").mask('(00) 00000-0000');
     $("#cep").mask('00000-000');
-    $("#numero").mask('#');
-}
-
-function validarDocumento(element) {
-    element.on('blur', function() {
-
-        let documento = $(this).val();
-
-        if(!validaCpfCnpj(documento) && documento != "") {
-
-            $(this).val("");
-
-            if($('#cpf').is(':checked')) {
-                alert('CPF inválido!');
-            } else {
-                alert('CNPJ inválido!');
-            }
-        }
-    });
 }
 
 function validaCpfCnpj(val) {
@@ -223,43 +204,59 @@ function validaCpfCnpj(val) {
     }
 }
 
+function validarDocumento(element) {
+    element.on('blur', function() {
+
+        let documento = $(this).val();
+
+        if(!validaCpfCnpj(documento) && documento != "") {
+
+            $(this).val("");
+
+            if($('#cpf').is(':checked')) {
+                alert('CPF inválido!');
+            } else {
+                alert('CNPJ inválido!');
+            }
+        }
+    });
+}
+
+function validaNumero(element) {
+    element.on('blur', function () {
+        const numero = $(this).val();
+        const regex = /^[0-9]*$/;
+        if(!regex.test(numero)) {
+            if(numero != "S/D") {
+                alert('Entrada inválida, campo aceita apenas número ou "S/D"!')
+            }
+        }
+    })
+}
 function validaTelefone(element) {
     element.on('change keyup', function(){
         mascaraTelefone(element);
     });
     element.on('blur', function(){
-        const telefone = $(this).val().length; 
-        if(telefone == 0) {
+        const telefone = $(this).val(); 
+        if(telefone.length == 0) {
             return;
-        } else if(telefone < 14) {
+        } else if(telefone.length < 14) {
             $(this).val("");
             alert('Tel/Cel inválido');
             return;
         }
-        const ddd = $(this).val().trim(" ");
-        if(ddd[1] == "0") {
+        const ddd = telefone.trim(" ");
+        if(ddd[1] == "0" || (ddd[1] == "1" && ddd[2] == "0")) {
             $(this).val("");
             alert('DDD inválido');
+            return;
+        }
+        const numerosTelefone = telefone.replace(/\-|\)|\(| /g, '').substring(2);
+        const regex = /^(.)\1+$/;
+        if(regex.test(numerosTelefone)) {
+            $(this).val("");
+            alert('Tel/Cel inválido');
         }
     });
-}
-
-function validaForm() {
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-          // Fetch all the forms we want to apply custom Bootstrap validation styles to
-          var forms = document.getElementsByClassName('needs-validation');
-          // Loop over them and prevent submission
-          var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-              if (form.checkValidity() === false) {
-                event.preventDefault();
-                event.stopPropagation();
-              }
-              form.classList.add('was-validated');
-            }, false);
-          });
-        }, false);
-      })();
 }

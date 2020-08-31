@@ -24,7 +24,7 @@ if (isset($_POST['salvar'])) {
     $email = $_POST['email'];
     $telefone = $_POST['telefone'] ? $_POST['telefone'] : "";
     $endereco = $_POST['endereco'] ? $_POST['endereco'] : "";
-    $numero = !empty($_POST['numero']) ? $_POST['numero'] : 0;
+    $numero = $_POST['numero'] != "S/D" ? $_POST['numero'] : 0;
     $bairro = $_POST['bairro'] ? $_POST['bairro'] : "";
     $cidade = $_POST['cidade'] ? $_POST['cidade'] : "";
     $uf = $_POST['uf'] ? $_POST['uf'] : "";
@@ -71,6 +71,8 @@ if (isset($_POST['salvar'])) {
     } catch (PDOException $e) {
         echo "<br>" . $e->getMessage();
     }
+
+    $_POST['salvar'] = null;
 }
 ?>
 
@@ -191,7 +193,8 @@ if (isset($_POST['salvar'])) {
                         <div class="col-10 pl-2">
                             <input type="text" name="numero" class="form-control" id="numero" placeholder="Nº" required>
                             <div class="invalid-feedback">
-                                Campo obrigatório
+                                Campo obrigatório.<br>
+                                Obs.: Colocar "S/D" caso não possua Nº.
                             </div>
                         </div>
                     </div>
@@ -307,6 +310,7 @@ if (isset($_POST['salvar'])) {
         cep();
         mascaraEmail();
         validarDocumento($("#documento"));
+        validaNumero($("#numero"));
         validaTelefone($("#telefone"));
 
     });
