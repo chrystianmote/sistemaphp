@@ -23,6 +23,10 @@ function cep() {
     $("#cep").on('blur', function (e) {
         const cep = $(this).val().replace('-', '');
 
+        if(cep.length == 0) {
+            return;
+        }
+
         if (cep.length != 8) {
             alert('CEP invalido!');
             return;
@@ -31,6 +35,7 @@ function cep() {
         $.get(`https://viacep.com.br/ws/${cep}/json/`, function (data) {
                 if (data.erro) {
                     alert('CEP não encontrado!');
+                    $("#cep").val("");
                     return;
                 } else {
                     $('#endereco').val(data.logradouro);
@@ -67,6 +72,14 @@ function mascaraEmail() {
     });
 }
 
+function mascaraTelefone(element) {
+    if(element.val().length <= 14) {
+        $("#telefone").mask('(00) 0000-00000');
+    } else {
+        $("#telefone").mask('(00) 00000-0000');
+    }
+}
+
 function SetMascaras() {
     $("#documento").mask('000.000.000-00');
     $("#telefone").mask('(00) 00000-0000');
@@ -83,9 +96,9 @@ function validarDocumento(element) {
             $(this).val("");
 
             if($('#cpf').is(':checked')) {
-                alert("CPF inválido!");
+                alert('CPF inválido!');
             } else {
-                alert("CNPJ inválido!");
+                alert('CNPJ inválido!');
             }
         }
     });
@@ -93,17 +106,17 @@ function validarDocumento(element) {
 
 function validaCpfCnpj(val) {
     if (val.length == 14) {
-        var cpf = val.trim();
+        let cpf = val.trim();
      
         cpf = cpf.replace(/\./g, '');
         cpf = cpf.replace('-', '');
         cpf = cpf.split('');
         
-        var v1 = 0;
-        var v2 = 0;
-        var aux = false;
+        let v1 = 0;
+        let v2 = 0;
+        let aux = false;
         
-        for (var i = 1; cpf.length > i; i++) {
+        for (let i = 1; cpf.length > i; i++) {
             if (cpf[i - 1] != cpf[i]) {
                 aux = true;   
             }
@@ -113,7 +126,7 @@ function validaCpfCnpj(val) {
             return false; 
         } 
         
-        for (var i = 0, p = 10; (cpf.length - 2) > i; i++, p--) {
+        for (let i = 0, p = 10; (cpf.length - 2) > i; i++, p--) {
             v1 += cpf[i] * p; 
         } 
         
@@ -127,7 +140,7 @@ function validaCpfCnpj(val) {
             return false; 
         } 
         
-        for (var i = 0, p = 11; (cpf.length - 1) > i; i++, p--) {
+        for (let i = 0, p = 11; (cpf.length - 1) > i; i++, p--) {
             v2 += cpf[i] * p; 
         } 
         
@@ -143,18 +156,18 @@ function validaCpfCnpj(val) {
             return true; 
         }
     } else if (val.length == 18) {
-        var cnpj = val.trim();
+        let cnpj = val.trim();
         
         cnpj = cnpj.replace(/\./g, '');
         cnpj = cnpj.replace('-', '');
         cnpj = cnpj.replace('/', ''); 
         cnpj = cnpj.split(''); 
         
-        var v1 = 0;
-        var v2 = 0;
-        var aux = false;
+        let v1 = 0;
+        let v2 = 0;
+        let aux = false;
         
-        for (var i = 1; cnpj.length > i; i++) { 
+        for (let i = 1; cnpj.length > i; i++) { 
             if (cnpj[i - 1] != cnpj[i]) {  
                 aux = true;   
             } 
@@ -164,7 +177,7 @@ function validaCpfCnpj(val) {
             return false; 
         }
         
-        for (var i = 0, p1 = 5, p2 = 13; (cnpj.length - 2) > i; i++, p1--, p2--) {
+        for (let i = 0, p1 = 5, p2 = 13; (cnpj.length - 2) > i; i++, p1--, p2--) {
             if (p1 >= 2) {  
                 v1 += cnpj[i] * p1;  
             } else {  
@@ -184,7 +197,7 @@ function validaCpfCnpj(val) {
             return false; 
         } 
         
-        for (var i = 0, p1 = 6, p2 = 14; (cnpj.length - 1) > i; i++, p1--, p2--) { 
+        for (let i = 0, p1 = 6, p2 = 14; (cnpj.length - 1) > i; i++, p1--, p2--) { 
             if (p1 >= 2) {  
                 v2 += cnpj[i] * p1;  
             } else {   
@@ -202,10 +215,50 @@ function validaCpfCnpj(val) {
         
         if (v2 != cnpj[13]) {   
             return false; 
-        } else {  
-            return true; 
         }
+        return true; 
     } else {
         return false;
     }
- }
+}
+
+function validaTelefone(element) {
+    element.on('change keyup', function(){
+        mascaraTelefone(element);
+    });
+    element.on('blur', function(){
+        const telefone = $(this).val().length; 
+        if(telefone == 0) {
+            return;
+        } else if(telefone < 14) {
+            $(this).val("");
+            alert('Tel/Cel inválido');
+            return;
+        }
+        const ddd = $(this).val().trim(" ");
+        if(ddd[1] == "0") {
+            $(this).val("");
+            alert('DDD inválido');
+        }
+    });
+}
+
+function validaForm() {
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.getElementsByClassName('needs-validation');
+          // Loop over them and prevent submission
+          var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+              if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        }, false);
+      })();
+}

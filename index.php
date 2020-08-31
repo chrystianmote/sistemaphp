@@ -65,12 +65,6 @@ if (isset($_POST['salvar'])) {
                 </script>
             ";
             }
-        } else {
-            echo "
-            <script type=\"text/javascript\">
-            alert('Documento invalido');
-            </script>
-            ";
         }
         $conn = null;
 
@@ -81,7 +75,7 @@ if (isset($_POST['salvar'])) {
 ?>
 
 <div class="container">
-    <form class="mt-2 p-4" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+    <form class="mt-2 p-4 needs-validation" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" novalidate>
         <div class="form-group row">
             <div class="col-12">
                 <h1>Cadastro</h1>
@@ -113,7 +107,10 @@ if (isset($_POST['salvar'])) {
                 <div class="row">
                     <label for="nome" class="col-4 col-form-label lbname">Nome:</label>
                     <div class="col-8 pl-2">
-                        <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome">
+                        <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome" required>
+                        <div class="invalid-feedback">
+                            Campo obrigatório
+                        </div>
                     </div>
                 </div>
             </div>
@@ -121,7 +118,10 @@ if (isset($_POST['salvar'])) {
                 <div class="row">
                     <label for="documento" class="col-2 col-form-label lbdocumento">CPF:</label>
                     <div class="col-10 pl-2">
-                        <input type="text" name="documento" class="form-control" id="documento" placeholder="CPF">
+                        <input type="text" name="documento" class="form-control" id="documento" placeholder="CPF" required>
+                        <div class="invalid-feedback">
+                            Campo obrigatório
+                        </div>
                     </div>
                 </div>
             </div>
@@ -136,7 +136,10 @@ if (isset($_POST['salvar'])) {
                     <div class="row">
                         <label for="email" class="col-2 col-form-label">Gmail:</label>
                         <div class="col-10 pl-2">
-                            <input type="email" name="email" class="form-control" id="email" placeholder="E-mail">
+                            <input type="email" name="email" class="form-control" id="email" placeholder="E-mail" required>
+                            <div class="invalid-feedback">
+                                Campo obrigatório
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -145,7 +148,10 @@ if (isset($_POST['salvar'])) {
                         <label for="telefone" class="col-2 col-form-label">Telefone:</label>
                         <div class="col-10 pl-2">
                             <input type="text" name="telefone" class="form-control" id="telefone"
-                                   placeholder="Telefone">
+                                   placeholder="Telefone" required>
+                            <div class="invalid-feedback">
+                                Campo obrigatório
+                            </div>       
                         </div>
                     </div>
                 </div>
@@ -170,7 +176,10 @@ if (isset($_POST['salvar'])) {
                         <label for="endereco" class="col-3 col-form-label">Logradouro:</label>
                         <div class="col-9 pl-2">
                             <input type="text" name="endereco" class="form-control" id="endereco"
-                                   placeholder="Logradouro">
+                                   placeholder="Logradouro" required>
+                            <div class="invalid-feedback">
+                                Campo obrigatório
+                            </div>       
                         </div>
                     </div>
                 </div>
@@ -180,7 +189,10 @@ if (isset($_POST['salvar'])) {
                     <div class="row">
                         <label for="numero" class="col-2 col-form-label">Número:</label>
                         <div class="col-10 pl-2">
-                            <input type="text" name="numero" class="form-control" id="numero" placeholder="Nº">
+                            <input type="text" name="numero" class="form-control" id="numero" placeholder="Nº" required>
+                            <div class="invalid-feedback">
+                                Campo obrigatório
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -188,7 +200,10 @@ if (isset($_POST['salvar'])) {
                     <div class="row">
                         <label for="bairro" class="col-2 col-form-label">Bairro:</label>
                         <div class="col-10 pl-2">
-                            <input type="text" name="bairro" class="form-control" id="bairro" placeholder="Bairro">
+                            <input type="text" name="bairro" class="form-control" id="bairro" placeholder="Bairro" required>
+                            <div class="invalid-feedback">
+                                Campo obrigatório
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -198,7 +213,10 @@ if (isset($_POST['salvar'])) {
                     <div class="row">
                         <label for="cidade" class="col-2 col-form-label">Cidade:</label>
                         <div class="col-10 pl-2">
-                            <input type="text" name="cidade" class="form-control" id="cidade" placeholder="Cidade">
+                            <input type="text" name="cidade" class="form-control" id="cidade" placeholder="Cidade" required>
+                            <div class="invalid-feedback">
+                                Campo obrigatório
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -206,7 +224,10 @@ if (isset($_POST['salvar'])) {
                     <div class="row">
                         <label for="uf" class="col-2 col-form-label">UF:</label>
                         <div class="col-10 pl-2">
-                            <input type="text" name="uf" class="form-control" id="uf" placeholder="UF">
+                            <input type="text" name="uf" class="form-control" id="uf" placeholder="UF" required>
+                            <div class="invalid-feedback">
+                                Campo obrigatório
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -230,6 +251,25 @@ if (isset($_POST['salvar'])) {
 
 <script type="text/javascript">
 
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+            });
+        }, false);
+    })();
+</script>
+<script type="text/javascript">
     jQuery(document).ready(function ($) {
 
         SetMascaras();
@@ -237,6 +277,7 @@ if (isset($_POST['salvar'])) {
         cep();
         mascaraEmail();
         validarDocumento($("#documento"));
+        validaTelefone($("#telefone"));
 
     });
 </script>
