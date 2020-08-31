@@ -5,6 +5,7 @@ function mudarNomeCampos() {
             $(".lbdocumento").html("CPF:");
             $('input[name=nome]').attr('placeholder', 'Nome');
             $('input[name=documento]').attr('placeholder', 'CPF');
+            $("#documento").val('');
             $("#documento").mask('000.000.000-00');
         } else {
 
@@ -72,13 +73,20 @@ function SetMascaras() {
     $("#cep").mask('00000-000');
 }
 
-function validarDocumento() {
-    $("#documento").on('blur', function() {
-        let cpf = $(this).val();
-        if(!validaCpfCnpj(cpf) && cpf != "") {
+function validarDocumento(element) {
+    element.on('blur', function() {
+
+        let documento = $(this).val();
+
+        if(!validaCpfCnpj(documento) && documento != "") {
+
             $(this).val("");
-            $("")
-            alert("CPF inválido!");
+
+            if($('#cpf').is(':checked')) {
+                alert("CPF inválido!");
+            } else {
+                alert("CNPJ inválido!");
+            }
         }
     });
 }
@@ -201,18 +209,3 @@ function validaCpfCnpj(val) {
         return false;
     }
  }
-
-function valdiaPrimeiroDigito(digitos, primeiroD) {
-    let result = 0;
-    digitos.forEach((digito, index) => {
-        result += digito * (index + 1);
-    });
-    if ((result % 11) == 10 && primeiroD == 0) {
-        return true;
-    } else if ((result % 11) == primeiroD) {
-        return true;
-    } else {
-        return false;
-    }
-}
-

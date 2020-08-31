@@ -232,38 +232,11 @@ if (isset($_POST['salvar'])) {
 
     jQuery(document).ready(function ($) {
 
-
-        if ($('#cpf').is(':checked')) {
-            //validarCPF($("#documento"));
-             console.log('é CPF');
-        }
-        else {
-            //validarCNPJ($("#documento"));
-            console.log('é CNPJ');
-        }
-
-        $('input[name="categoria"]').on('change', function (e) {
-
-            let ehCPF = $('#cpf').is(':checked');
-            if (ehCPF) {
-                //validarCPF($("#documento"));
-                console.log('é CPF');
-
-            }
-            else {
-//                validarCNPJ($("#documento"));
-                console.log('é CNPJ');
-            }
-
-
-        });
-
-
         SetMascaras();
         mudarNomeCampos();
         cep();
         mascaraEmail();
-
+        validarDocumento($("#documento"));
 
     });
 </script>
