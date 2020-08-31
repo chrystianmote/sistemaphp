@@ -113,5 +113,41 @@ class BDUtil
 
     }
 
+    public static function GetEmpresas()
+    {
+
+        $conn = self::OpenConnection();
+
+        try {
+
+            $sql = "SELECT * FROM empresa;";
+
+            $resultado = $conn->query($sql);
+
+            if ($resultado->rowCount() == 0) {
+
+                $resp['erro'] = true;
+                $resp['msg'] = 'Nenhum resultado';
+
+            } else {
+
+
+                $resp['erro'] = false;
+                $resp['msg'] = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+            }
+
+        } catch (Exception $e) {
+
+            $resp['erro'] = true;
+            $resp['msg'] = $e->getMessage();
+
+          
+        } finally {
+            return $resp;
+        }
+
+    }
+
 }
 

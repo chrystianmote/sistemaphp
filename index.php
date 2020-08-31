@@ -17,7 +17,11 @@
 
 include "BDUtil.php";
 
-if (isset($_POST['salvar'])) {
+if(isset($_GET['id'])) {
+    echo $_GET['id'];
+    echo $_GET['documento'];
+
+} else if (isset($_POST['salvar'])) {
 
     $nome = $_POST['nome'];
     $documento = $_POST['documento'];
