@@ -17,10 +17,21 @@
 
 include "BDUtil.php";
 
+$tipo = "f";
+$uf = "";
 if(isset($_GET['id'])) {
-    echo $_GET['id'];
-    echo $_GET['documento'];
+    
+    if(isset($_GET['tipo'])) {
+        $tipo = $_GET['tipo'];
+        if($tipo == 'f') {
+            $dado = BDUtil::GetPessoaById($_GET['id']);
+        } else {
+            $dado = BDUtil::GetEmpresaById($_GET['id']);
+        }
 
+        $uf = $dado['msg']['uf'];
+    }
+    
 } else if (isset($_POST['salvar'])) {
 
     $nome = $_POST['nome'];
@@ -93,13 +104,23 @@ if(isset($_GET['id'])) {
                 <legend class="col-form-label col-2 pt-0"><strong>Categoria:</strong></legend>
                 <div class="col-10">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="categoria" id="cpf" value="option1" checked>
+                        <input class="form-check-input" type="radio" name="categoria" id="cpf" value="option1" 
+                        <?php if(isset($_GET['id']) && $tipo != 'f') {
+                                echo "disabled";
+                              } else if($tipo == 'f') {
+                                echo "checked";
+                              }?>>
                         <label class="form-check-label" for="cpf">
                             Pessoa Física
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="categoria" id="cnpj" value="option2">
+                        <input class="form-check-input" type="radio" name="categoria" id="cnpj" value="option2"
+                        <?php if(isset($_GET['id']) && $tipo != 'j') {
+                                echo "disabled";
+                              } else if($tipo == 'j') {
+                                echo "checked";
+                              }?>>
                         <label class="form-check-label" for="cnpj">
                             Pessoa Jurídica
                         </label>
@@ -113,7 +134,12 @@ if(isset($_GET['id'])) {
                 <div class="row">
                     <label for="nome" class="col-4 col-form-label lbname">Nome:</label>
                     <div class="col-8 pl-2">
-                        <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome" required>
+                        <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome" 
+                               value="<?php if($tipo == 'f' && isset($_GET['id'])) {
+                                                echo $dado['msg']['nome'];
+                                            } else if(isset($_GET['id'])) {
+                                                echo $dado['msg']['razao_social'];
+                                            }?>" required>
                         <div class="invalid-feedback">
                             Campo obrigatório
                         </div>
@@ -124,7 +150,12 @@ if(isset($_GET['id'])) {
                 <div class="row">
                     <label for="documento" class="col-2 col-form-label lbdocumento">CPF:</label>
                     <div class="col-10 pl-2">
-                        <input type="text" name="documento" class="form-control" id="documento" placeholder="CPF" required>
+                        <input type="text" name="documento" class="form-control" id="documento" placeholder="CPF" 
+                               value="<?php if($tipo == 'f' && isset($_GET['id'])) {
+                                                echo $dado['msg']['cpf'];
+                                            } else if(isset($_GET['id'])) {
+                                                echo $dado['msg']['cnpj'];
+                                            }?>"  required>
                         <div class="invalid-feedback">
                             Campo obrigatório
                         </div>
@@ -142,7 +173,11 @@ if(isset($_GET['id'])) {
                     <div class="row">
                         <label for="email" class="col-2 col-form-label">Gmail:</label>
                         <div class="col-10 pl-2">
-                            <input type="email" name="email" class="form-control" id="email" placeholder="E-mail" required>
+                            <input type="email" name="email" 
+                                   class="form-control" id="email" placeholder="E-mail" 
+                                   value="<?php if(isset($_GET['id'])) {
+                                                    echo $dado['msg']['email'];
+                                                } ?>" required>
                             <div class="invalid-feedback">
                                 Campo obrigatório
                             </div>
@@ -153,8 +188,11 @@ if(isset($_GET['id'])) {
                     <div class="row">
                         <label for="telefone" class="col-2 col-form-label">Telefone:</label>
                         <div class="col-10 pl-2">
-                            <input type="text" name="telefone" class="form-control" id="telefone"
-                                   placeholder="Telefone" required>
+                            <input type="text" name="telefone" 
+                                   class="form-control" id="telefone" placeholder="Telefone" 
+                                   value="<?php if(isset($_GET['id'])) {
+                                                    echo $dado['msg']['telefone'];
+                                                } ?>" required>
                             <div class="invalid-feedback">
                                 Campo obrigatório
                             </div>       
@@ -181,8 +219,11 @@ if(isset($_GET['id'])) {
                     <div class="row">
                         <label for="endereco" class="col-3 col-form-label">Logradouro:</label>
                         <div class="col-9 pl-2">
-                            <input type="text" name="endereco" class="form-control" id="endereco"
-                                   placeholder="Logradouro" required>
+                            <input type="text" name="endereco" 
+                                   class="form-control" id="endereco" placeholder="Logradouro" 
+                                   value="<?php if(isset($_GET['id'])) {
+                                                    echo $dado['msg']['logradouro'];
+                                                } ?>" required>
                             <div class="invalid-feedback">
                                 Campo obrigatório
                             </div>       
@@ -195,7 +236,11 @@ if(isset($_GET['id'])) {
                     <div class="row">
                         <label for="numero" class="col-2 col-form-label">Número:</label>
                         <div class="col-10 pl-2">
-                            <input type="text" name="numero" class="form-control" id="numero" placeholder="Nº" required>
+                            <input type="text" name="numero" 
+                                   class="form-control" id="numero" placeholder="Nº" 
+                                   value="<?php if(isset($_GET['id'])) {
+                                                    echo $dado['msg']['numero'];
+                                                } ?>" required>
                             <div class="invalid-feedback">
                                 Campo obrigatório.<br>
                                 Obs.: Colocar "S/D" caso não possua Nº.
@@ -207,7 +252,11 @@ if(isset($_GET['id'])) {
                     <div class="row">
                         <label for="bairro" class="col-2 col-form-label">Bairro:</label>
                         <div class="col-10 pl-2">
-                            <input type="text" name="bairro" class="form-control" id="bairro" placeholder="Bairro" required>
+                            <input type="text" name="bairro" 
+                                   class="form-control" id="bairro" placeholder="Bairro" 
+                                   value="<?php if(isset($_GET['id'])) {
+                                                    echo $dado['msg']['bairro'];
+                                                } ?>" required>
                             <div class="invalid-feedback">
                                 Campo obrigatório
                             </div>
@@ -220,7 +269,11 @@ if(isset($_GET['id'])) {
                     <div class="row">
                         <label for="cidade" class="col-2 col-form-label">Cidade:</label>
                         <div class="col-10 pl-2">
-                            <input type="text" name="cidade" class="form-control" id="cidade" placeholder="Cidade" required>
+                            <input type="text" name="cidade" 
+                                   class="form-control" id="cidade" placeholder="Cidade" 
+                                   value="<?php if(isset($_GET['id'])) {
+                                                    echo $dado['msg']['cidade'];
+                                                } ?>" required>
                             <div class="invalid-feedback">
                                 Campo obrigatório
                             </div>
@@ -231,37 +284,39 @@ if(isset($_GET['id'])) {
                     <div class="row">
                         <label for="uf" class="col-2 col-form-label">UF:</label>
                         <div class="col-10 pl-2">
-                            <select class="custom-select" name="uf" id="uf" required>
-                                <option value="" selected></option>
-                                <option value="AC">Acre</option>
-                                <option value="AL">Alagoas</option>
-                                <option value="AP">Amapá</option>
-                                <option value="AM">Amazonas</option>
-                                <option value="BA">Bahia</option>
-                                <option value="CE">Ceará</option>
-                                <option value="DF">Distrito Federal</option>
-                                <option value="ES">Espírito Santo</option>
-                                <option value="GO">Goiás</option>
-                                <option value="MA">Maranhão</option>
-                                <option value="MT">Mato Grosso</option>
-                                <option value="MS">Mato Grosso do Sul</option>
-                                <option value="MG">Minas Gerais</option>
-                                <option value="PA">Pará</option>
-                                <option value="PB">Paraíba</option>
-                                <option value="PR">Paraná</option>
-                                <option value="PE">Pernambuco</option>
-                                <option value="PI">Piauí</option>
-                                <option value="RJ">Rio de Janeiro</option>
-                                <option value="RN">Rio Grande do Norte</option>
-                                <option value="RS">Rio Grande do Sul</option>
-                                <option value="RO">Rondônia</option>
-                                <option value="RR">Roraima</option>
-                                <option value="SC">Santa Catarina</option>
-                                <option value="SP">São Paulo</option>
-                                <option value="SE">Sergipe</option>
-                                <option value="TO">Tocantins</option>
+                            <select class="custom-select" name="uf" id="uf" 
+                                value="<?php if(isset($_GET['id'])) {
+                                                    echo $dado['msg']['uf'];
+                                             } ?>" required>
+                                <option value="" <?php echo $uf =="" ?'selected':'';?>></option>
+                                <option value="AC" <?php echo $uf =="AC" ?'selected':'';?>>Acre</option>
+                                <option value="AL" <?php echo $uf =="AL" ?'selected':'';?>>Alagoas</option>
+                                <option value="AP" <?php echo $uf =="AP" ?'selected':'';?>>Amapá</option>
+                                <option value="AM" <?php echo $uf =="AM" ?'selected':'';?>>Amazonas</option>
+                                <option value="BA" <?php echo $uf =="BA" ?'selected':'';?>>Bahia</option>
+                                <option value="CE" <?php echo $uf =="CE" ?'selected':'';?>>Ceará</option>
+                                <option value="DF" <?php echo $uf =="DF" ?'selected':'';?>>Distrito Federal</option>
+                                <option value="ES" <?php echo $uf =="ES" ?'selected':'';?>>Espírito Santo</option>
+                                <option value="GO" <?php echo $uf =="GO" ?'selected':'';?>>Goiás</option>
+                                <option value="MA" <?php echo $uf =="MA" ?'selected':'';?>>Maranhão</option>
+                                <option value="MT" <?php echo $uf =="MT" ?'selected':'';?>>Mato Grosso</option>
+                                <option value="MS" <?php echo $uf =="MS" ?'selected':'';?>>Mato Grosso do Sul</option>
+                                <option value="MG" <?php echo $uf =="MG" ?'selected':'';?>>Minas Gerais</option>
+                                <option value="PA" <?php echo $uf =="PA" ?'selected':'';?>>Pará</option>
+                                <option value="PB" <?php echo $uf =="PB" ?'selected':'';?>>Paraíba</option>
+                                <option value="PR" <?php echo $uf =="PR" ?'selected':'';?>>Paraná</option>
+                                <option value="PE" <?php echo $uf =="PE" ?'selected':'';?>>Pernambuco</option>
+                                <option value="PI" <?php echo $uf =="PI" ?'selected':'';?>>Piauí</option>
+                                <option value="RJ" <?php echo $uf =="RJ" ?'selected':'';?>>Rio de Janeiro</option>
+                                <option value="RN" <?php echo $uf =="RN" ?'selected':'';?>>Rio Grande do Norte</option>
+                                <option value="RS" <?php echo $uf =="RS" ?'selected':'';?>>Rio Grande do Sul</option>
+                                <option value="RO" <?php echo $uf =="RO" ?'selected':'';?>>Rondônia</option>
+                                <option value="RR" <?php echo $uf =="RR" ?'selected':'';?>>Roraima</option>
+                                <option value="SC" <?php echo $uf =="SC" ?'selected':'';?>>Santa Catarina</option>
+                                <option value="SP" <?php echo $uf =="SP" ?'selected':'';?>>São Paulo</option>
+                                <option value="SE" <?php echo $uf =="SE" ?'selected':'';?>>Sergipe</option>
+                                <option value="TO" <?php echo $uf =="TO" ?'selected':'';?>>Tocantins</option>
                             </select>
-                            <!-- <input type="text" name="uf" class="form-control" id="uf" placeholder="UF" required> -->
                             <div class="invalid-feedback">
                                 Campo obrigatório
                             </div>
@@ -273,7 +328,11 @@ if(isset($_GET['id'])) {
 
         <div class="form-group row">
             <div class="col-sm-6 d-flex justify-content-end">
-                <button type="submit" name="salvar" class="btn btn-primary">Cadastrar</button>
+                <?php if(isset($_GET['id'])) {
+                        echo '<button type="submit" name="salvar" class="btn btn-secondary">Atualizar</button>';    
+                      } else {
+                        echo '<button type="submit" name="salvar" class="btn btn-primary">Cadastrar</button>'; 
+                      } ?>
             </div>
             <div class="col-sm-6 d-flex justify-content-start">
                 <a class="btn btn-primary" href="list.php" role="button">Listar</a>
@@ -316,7 +375,7 @@ if(isset($_GET['id'])) {
         validarDocumento($("#documento"));
         validaNumero($("#numero"));
         validaTelefone($("#telefone"));
-
+        $()
     });
 </script>
 

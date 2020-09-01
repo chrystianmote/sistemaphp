@@ -81,9 +81,20 @@ function mascaraTelefone(element) {
 }
 
 function SetMascaras() {
-    $("#documento").mask('000.000.000-00');
+    
     $("#telefone").mask('(00) 00000-0000');
     $("#cep").mask('00000-000');
+
+    if($("#cpf").attr("checked") != undefined) {
+        $("#documento").mask('000.000.000-00');
+    } else {
+        $(".lbname").html("Razão Social:");
+        $(".lbdocumento").html("CNPJ:");
+        $('input[name=nome]').attr('placeholder', 'Razão Social');
+        $('input[name=documento]').attr('placeholder', 'CNPJ');
+        $("#documento").mask('00.000.000/0000-00');
+    }
+
 }
 
 function validaCpfCnpj(val) {

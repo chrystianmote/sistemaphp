@@ -77,6 +77,79 @@ class BDUtil
 
     }
 
+    public static function GetEmpresaById($id)
+    {
+
+        $conn = self::OpenConnection();
+
+        try {
+
+            $sql = "SELECT * FROM empresa WHERE id = $id;";
+
+            $resultado = $conn->query($sql);
+
+            if ($resultado->rowCount() == 0) {
+
+                $resp['erro'] = true;
+                $resp['msg'] = 'Não foi encontrado uma empresa com esse id';
+
+            } else {
+
+
+                $resp['erro'] = false;
+                $resp['msg'] = $resultado->fetch(PDO::FETCH_ASSOC);
+
+            }
+
+        } catch (Exception $e) {
+
+            $resp['erro'] = true;
+            $resp['msg'] = $e->getMessage();
+
+          
+        } finally {
+            return $resp;
+        }
+
+    }
+
+
+    public static function GetPessoaById($id)
+    {
+
+        $conn = self::OpenConnection();
+
+        try {
+
+            $sql = "SELECT * FROM pessoa WHERE id = $id;";
+
+            $resultado = $conn->query($sql);
+
+            if ($resultado->rowCount() == 0) {
+
+                $resp['erro'] = true;
+                $resp['msg'] = 'Não foi encontrado uma pessoa com esse id';
+
+            } else {
+
+
+                $resp['erro'] = false;
+                $resp['msg'] = $resultado->fetch(PDO::FETCH_ASSOC);
+
+            }
+
+        } catch (Exception $e) {
+
+            $resp['erro'] = true;
+            $resp['msg'] = $e->getMessage();
+
+          
+        } finally {
+            return $resp;
+        }
+
+    }
+
     public static function GetPessoas()
     {
 
