@@ -19,8 +19,9 @@ include "BDUtil.php";
 
 $tipo = "f";
 $uf = "";
+$id = "";
 if(isset($_GET['id'])) {
-    
+    $id = $_GET['id'];
     if(isset($_GET['tipo'])) {
         $tipo = $_GET['tipo'];
         if($tipo == 'f') {
@@ -44,11 +45,6 @@ if(isset($_GET['id'])) {
     $cidade = $_POST['cidade'] ? $_POST['cidade'] : "";
     $uf = $_POST['uf'] ? $_POST['uf'] : "";
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "root";
-    $dbname = "cadastro";
-
     try {
         if (strlen($documento) == 18) {
             $id = BDUtil::SetEmpresa($nome, $documento, $email, $telefone, $endereco, $numero, $bairro, $cidade, $uf);
@@ -66,33 +62,100 @@ if(isset($_GET['id'])) {
                 ";
             }
         } else if (strlen($documento) == 14) {
-            $id = BDUtil::SetPessoa($nome, $documento, $email, $telefone, $endereco, $numero, $bairro, $cidade, $uf);
-            if ($id > 0) {
-                echo "
-                <script type=\"text/javascript\">
-                alert('Nova Pessoa cadastrada');
-                </script>
-            ";
+            if(isset($_GET['id'])) {
+                $id = BDUtil::UpdatePessoa($id, $nome, $documento, $email, $telefone, $endereco, $numero, $bairro, $cidade, $uf);
+                if ($id > 0) {
+                    echo "
+                        <script type=\"text/javascript\">
+                        alert('A Pessoa com nome de $nome foi atualizada com sucesso!');
+                        </script>
+                    ";
+                } else {
+                    echo "
+                        <script type=\"text/javascript\">
+                        alert('Não foi possível atualizar os dados da pessoa $nome!');
+                        </script>
+                    ";
+                }
             } else {
-                echo "
-                <script type=\"text/javascript\">
-                alert('Não foi possível cadastrada a nova Pessoa');
-                </script>
-            ";
+                $id = BDUtil::SetPessoa($nome, $documento, $email, $telefone, $endereco, $numero, $bairro, $cidade, $uf);
+                if ($id > 0) {
+                    echo "
+                    <script type=\"text/javascript\">
+                    alert('Nova Pessoa cadastrada');
+                    </script>
+                ";
+                } else {
+                    echo "
+                    <script type=\"text/javascript\">
+                    alert('Não foi possível cadastrada a nova Pessoa');
+                    </script>
+                ";
+                }
             }
         }
-        $conn = null;
 
     } catch (PDOException $e) {
         echo "<br>" . $e->getMessage();
     }
 
     $_POST['salvar'] = null;
+} else if (isset($_POST['atualizar'])) {
+
+    $nome = $_POST['nome'];
+    $documento = $_POST['documento'];
+    $email = $_POST['email'];
+    $telefone = $_POST['telefone'] ? $_POST['telefone'] : "";
+    $endereco = $_POST['endereco'] ? $_POST['endereco'] : "";
+    $numero = $_POST['numero'] != "S/D" ? $_POST['numero'] : 0;
+    $bairro = $_POST['bairro'] ? $_POST['bairro'] : "";
+    $cidade = $_POST['cidade'] ? $_POST['cidade'] : "";
+    $uf = $_POST['uf'] ? $_POST['uf'] : "";
+
+    try {
+        if (strlen($documento) == 18) {
+            $id = BDUtil::UpdateEmpresa($_POST['id'], $nome, $documento, $email, $telefone, $endereco, $numero = 0 , $bairro, $cidade, $uf);
+            if ($id > 0) {
+                echo "
+                    <script type=\"text/javascript\">
+                    alert('Os dados da empresa $nome foram atualizada com sucesso!');
+                    </script>
+                ";
+            } else {
+                echo "
+                    <script type=\"text/javascript\">
+                    alert('Não foi possível atualizar os dados da empresa $nome!');
+                    </script>
+                ";
+            }
+        } else if (strlen($documento) == 14) {
+            $id = BDUtil::UpdatePessoa($_POST['id'], $nome, $documento, $email, $telefone, $endereco, $numero, $bairro, $cidade, $uf);
+            
+            if ($id > 0) {
+                echo "
+                    <script type=\"text/javascript\">
+                    alert('Os dados da pessoa $nome foram atualizada com sucesso!');
+                    </script>
+                ";
+            } else {
+                echo "
+                    <script type=\"text/javascript\">
+                    alert('Não foi possível atualizar os dados da pessoa $nome!');
+                    </script>
+                ";
+            }
+            
+        }
+
+    } catch (PDOException $e) {
+        echo "<br>" . $e->getMessage();
+    }
 }
 ?>
 
 <div class="container">
     <form class="mt-2 p-4 needs-validation" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" novalidate>
+    <input type="hidden" name="id" value="<?= $id ?>" />
         <div class="form-group row">
             <div class="col-12">
                 <h1>Cadastro</h1>
@@ -329,7 +392,7 @@ if(isset($_GET['id'])) {
         <div class="form-group row">
             <div class="col-sm-6 d-flex justify-content-end">
                 <?php if(isset($_GET['id'])) {
-                        echo '<button type="submit" name="salvar" class="btn btn-secondary">Atualizar</button>';    
+                        echo '<button type="submit" name="atualizar" class="btn btn-secondary">Atualizar</button>';    
                       } else {
                         echo '<button type="submit" name="salvar" class="btn btn-primary">Cadastrar</button>'; 
                       } ?>

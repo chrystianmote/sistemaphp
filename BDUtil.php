@@ -33,7 +33,7 @@ class BDUtil
         try {
 
             $sql = "INSERT INTO empresa (razao_social, cnpj, email, telefone, logradouro, numero, bairro, cidade, uf)
-            VALUES ('$nome' , '$documento', '$email', '$celular', '$endereco', $numero,' $bairro', '$cidade', '$uf')";
+            VALUES ('$nome' , '$documento', '$email', '$celular', '$endereco', $numero, '$bairro', '$cidade', '$uf')";
 
             $resultado = $conn->query($sql);
 
@@ -59,7 +59,7 @@ class BDUtil
         try {
 
             $sql = "INSERT INTO pessoa (nome, cpf, email, telefone, logradouro, numero, bairro, cidade, uf)
-            VALUES ('$nome' , '$documento', '$email', '$celular', '$endereco', $numero,' $bairro', '$cidade', '$uf')";
+            VALUES ('$nome' , '$documento', '$email', '$celular', '$endereco', $numero, '$bairro', '$cidade', '$uf')";
 
             $resultado = $conn->query($sql);
 
@@ -218,6 +218,53 @@ class BDUtil
           
         } finally {
             return $resp;
+        }
+
+    }
+
+    public static function UpdateEmpresa($id, $razao_social , $documento, $email, $celular, $endereco, $numero = 0 , $bairro, $cidade, $uf)
+    {
+
+        $conn = self::OpenConnection();
+
+        try {
+
+            $sql = "UPDATE empresa 
+                    SET razao_social = '$razao_social', cnpj = '$documento', email = '$email', telefone = '$celular', logradouro = '$endereco', numero = $numero, bairro = '$bairro', cidade = '$cidade', uf = '$uf'
+                    WHERE id = $id ";
+            $resultado = $conn->query($sql);
+
+            if ($resultado->rowCount() == 0) {
+                return false;
+            } else {
+                return $id;
+            }
+
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+    }
+    public static function UpdatePessoa($id, $nome , $documento, $email, $celular, $endereco, $numero = 0 , $bairro, $cidade, $uf)
+    {
+
+        $conn = self::OpenConnection();
+
+        try {
+
+            $sql = "UPDATE pessoa 
+                    SET nome = '$nome', cpf = '$documento', email = '$email', telefone = '$celular', logradouro = '$endereco', numero = $numero, bairro = '$bairro', cidade = '$cidade', uf = '$uf'
+                    WHERE id = $id ";
+            $resultado = $conn->query($sql);
+
+            if ($resultado->rowCount() == 0) {
+                return false;
+            } else {
+                return $id;
+            }
+
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
     }
