@@ -114,7 +114,7 @@ if(isset($_GET['id'])) {
 
     try {
         if (strlen($documento) == 18) {
-            $id = BDUtil::UpdateEmpresa($_POST['id'], $nome, $documento, $email, $telefone, $endereco, $numero = 0 , $bairro, $cidade, $uf);
+            $id = BDUtil::UpdateEmpresa($_POST['id'], $nome, $documento, $email, $telefone, $endereco, $numero, $bairro, $cidade, $uf);
             if ($id > 0) {
                 echo "
                     <script type=\"text/javascript\">
