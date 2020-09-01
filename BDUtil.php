@@ -25,6 +25,44 @@ class BDUtil
 
     }
 
+    public static function DeleteEmpresa($id) {
+        $conn = self::OpenConnection();
+        var_dump($id);
+        try {
+            $sql = "DELETE FROM empresa WHERE id = $id";
+
+            $resultado = $conn->query($sql);
+
+            if ($resultado->rowCount() == 0) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public static function DeletePessoa($id) {
+        $conn = self::OpenConnection();
+
+        try {
+            $sql = "DELETE FROM pessoa WHERE id = $id";
+
+            $resultado = $conn->query($sql);
+
+            if ($resultado->rowCount() == 0) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public static function SetEmpresa($nome , $documento, $email, $celular, $endereco, $numero = 0 , $bairro, $cidade, $uf)
     {
 

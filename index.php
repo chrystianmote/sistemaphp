@@ -154,7 +154,7 @@ if(isset($_GET['id'])) {
 ?>
 
 <div class="container">
-    <form class="mt-2 p-4 needs-validation" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" novalidate>
+    <form class="mt-2 p-4 needs-validation form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" novalidate>
     <input type="hidden" name="id" value="<?= $id ?>" />
         <div class="form-group row">
             <div class="col-12">
