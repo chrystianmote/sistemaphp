@@ -168,7 +168,9 @@ if(isset($_GET['id'])) {
                 <div class="col-10">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="categoria" id="cpf" value="option1" 
-                        <?php if(isset($_GET['id']) && $tipo != 'f') {
+                        <?php if(isset($_GET['id']) && $tipo == 'f') {
+                                echo "disabled checked";
+                              } else if(isset($_GET['id'])) {
                                 echo "disabled";
                               } else if($tipo == 'f') {
                                 echo "checked";
@@ -179,7 +181,9 @@ if(isset($_GET['id'])) {
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="categoria" id="cnpj" value="option2"
-                        <?php if(isset($_GET['id']) && $tipo != 'j') {
+                        <?php if(isset($_GET['id']) && $tipo == 'j') {
+                                echo "disabled checked";
+                              } else if(isset($_GET['id'])) {
                                 echo "disabled";
                               } else if($tipo == 'j') {
                                 echo "checked";
