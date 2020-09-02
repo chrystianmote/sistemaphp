@@ -1,43 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Login</title>
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <?php 
-        include "BDUtil.php";
-        
-        if(isset($_POST['registrar'])) {
-            if(isset($_POST['username']) && isset($_POST['password'])) {
-               $id = BDUtil::SetUser($_POST['username'],$_POST['password']);
-               if($id > 0) {
-                    echo '<script>
-                            alert("Usuário cadastrado com sucesso!");
-                         </script>';
-               } else {
-                    echo '<script>
-                            alert("Não foi possível cadastrar o usuário!");
-                         </script>';
-               }
-            }
+<?php
 
-            // if (password_verify('rasmuslerdorf', $hash)) {
-            //     echo 'Password is valid!';
-            // } else {
-            //     echo 'Invalid password.';
-            // }
-            }
-    ?>
-    <div class="container d-flex justify-content-center">
+include "../BDUtil.php";
+
+$username = null;
+$password = null;
+
+if (isset($_POST['login'])) {
+
+    if(!empty($_POST["username"]) && !empty($_POST["password"])) {
+        
+        $resp = BDUtil::Login($_POST["username"], $_POST["password"]);
+        if(!$resp['erro']) {
+            echo '<script>
+                    alert("Login efetuado com sucesso!");
+                </script>';
+            // session_start();
+            // $_SESSION["authenticated"] = 'true';
+            // header('Location: index.php');
+        }
+        else {
+            echo "<script>
+                    alert(\"{$resp['msg']}\");
+                </script";   
+
+            // header('Location: login.php');
+        }  
+    } 
+} 
+?>    
+<div class="container d-flex justify-content-center">
         <form class="mt-2 p-4 needs-validation form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" novalidate>
             <div class="form-group row">
                 <div class="col-12">
-                    <h1>Registrar</h1>
+                    <h1>Login</h1>
                 </div>
             </div>
             <div class="form-group row d-flex justify-content-center">
@@ -60,8 +66,8 @@
             </div>
             <div class="form-group row">
                 <div class="col-12 d-flex justify-content-center">
-                    <button type="submit" name="registrar" class="btn btn-primary">Registrar</button>
-                    <a class="btn btn-primary ml-4" href="login.php" role="button">Login</a>
+                    <button type="submit" name="login" class="btn btn-primary">Login</button>
+                    <a class="btn btn-primary ml-4" href="register.php" role="button">Novo Usuário</a>
                 </div>
             </div>
         </form>
@@ -87,5 +93,6 @@
         }, false);
     })();
 </script>
+
 </body>
 </html>

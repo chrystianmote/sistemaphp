@@ -122,14 +122,18 @@ class BDUtil
         
         $password = password_hash($password, PASSWORD_BCRYPT);
         
+        $resp = self::GetUserByUsername($username);
+        if(!$resp['erro']) {
+            return -1;
+        }
         try {
-            
             $sql = "INSERT INTO user (username, password)
             VALUES ('$username' , '$password')";
             
             $resultado = $conn->query($sql);
 
             if ($resultado->rowCount() == 0) {
+                
                 return false;
             } else {
 
@@ -197,6 +201,40 @@ class BDUtil
 
             } else {
 
+
+                $resp['erro'] = false;
+                $resp['msg'] = $resultado->fetch(PDO::FETCH_ASSOC);
+
+            }
+
+        } catch (Exception $e) {
+
+            $resp['erro'] = true;
+            $resp['msg'] = $e->getMessage();
+
+          
+        } finally {
+            return $resp;
+        }
+
+    }
+
+    public static function GetUserByUsername($username)
+    {
+
+        $conn = self::OpenConnection();
+
+        try {
+
+            $sql = "SELECT * FROM user WHERE username = '$username';";
+            $resultado = $conn->query($sql);
+
+            if ($resultado->rowCount() == 0) {
+
+                $resp['erro'] = true;
+                $resp['msg'] = 'Usuário não encontrado!';
+
+            } else {
 
                 $resp['erro'] = false;
                 $resp['msg'] = $resultado->fetch(PDO::FETCH_ASSOC);
@@ -285,6 +323,24 @@ class BDUtil
             return $resp;
         }
 
+    }
+
+    public static function Login($username, $password)
+    {
+
+        $user = self::GetUserByUsername($username);
+        if($user['erro']) {
+            return $user;
+        } else {
+            if($user['msg']['password'] == password_hash($password, PASSWORD_BCRYPT)) {
+                $user['msg']['password'] = "";
+                return $user;
+            } else {
+                $user['erro'] = true;
+                $user['msg'] = 'Senha incorreta!';
+                return $user;
+            }
+        }
     }
 
     public static function UpdateEmpresa($id, $razao_social , $documento, $email, $celular, $endereco, $numero = 0 , $bairro, $cidade, $uf)
