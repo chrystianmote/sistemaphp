@@ -98,7 +98,7 @@
 
                         $linha['telefone'] = $linha['telefone'] ? $linha['telefone'] : ' - ';
                         $linha['logradouro'] = $linha['logradouro'] ? $linha['logradouro'] : ' - ';
-                        $linha['numero'] = $linha['numero'] ? $linha['numero'] : ' - ';
+                        $linha['numero'] = $linha['numero'] ? $linha['numero'] : 'S/D';
                         $linha['bairro'] = $linha['bairro'] ? $linha['bairro'] : ' - ';
                         $linha['cidade'] = $linha['cidade'] ? $linha['cidade'] : ' - ';
                         $linha['uf'] = $linha['uf'] ? $linha['uf'] : ' - ';
