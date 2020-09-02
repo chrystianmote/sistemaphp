@@ -115,6 +115,34 @@ class BDUtil
 
     }
 
+    public static function SetUser($username , $password)
+    {
+
+        $conn = self::OpenConnection();
+        
+        $password = password_hash($password, PASSWORD_BCRYPT);
+        
+        try {
+            
+            $sql = "INSERT INTO user (username, password)
+            VALUES ('$username' , '$password')";
+            
+            $resultado = $conn->query($sql);
+
+            if ($resultado->rowCount() == 0) {
+                return false;
+            } else {
+
+                $iduser= $conn->lastInsertId();
+                return $iduser;
+            }
+
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+    }
+
     public static function GetEmpresaById($id)
     {
 
@@ -150,7 +178,6 @@ class BDUtil
         }
 
     }
-
 
     public static function GetPessoaById($id)
     {
