@@ -300,7 +300,6 @@ class BDUtil
             $resultado = $conn->query($sql);
 
             if ($resultado->rowCount() == 0) {
-
                 $resp['erro'] = true;
                 $resp['msg'] = 'Nenhum resultado';
 

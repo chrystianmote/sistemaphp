@@ -7,6 +7,8 @@
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
+
+    <script type="text/javascript" src="../js/sweetalert2.js"></script>
 </head>
 <body>
     <?php 
@@ -16,17 +18,26 @@
             if(isset($_POST['username']) && isset($_POST['password'])) {
                $id = BDUtil::SetUser($_POST['username'],$_POST['password']);
                if($id > 0) {
-                    echo '<script>
-                            alert("Usuário cadastrado com sucesso!");
-                         </script>';
+                    echo "<script>
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Usuário cadastrado com sucesso!'
+                            });
+                         </script>";
                } else if ($id == -1) {
-                    echo '<script>
-                            alert("Username já esta sendo utilizado!");
-                         </script>';
+                    echo "<script>
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'O username já esta sendo utilizado!'
+                            });
+                         </script>";
                } else {
-                    echo '<script>
-                            alert("Não foi possível cadastrar o usuário!");
-                         </script>';
+                    echo "<script>
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Não foi possível cadastrar o usuário!'
+                            });
+                         </script>";
                }
             }
         }

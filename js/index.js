@@ -28,13 +28,20 @@ function cep() {
         }
 
         if (cep.length != 8) {
-            alert('CEP invalido!');
+            Swal.fire({
+                icon: 'error',
+                title: 'CEP inválido!'
+            });
+            $(this).val("");
             return;
         }
 
         $.get(`https://viacep.com.br/ws/${cep}/json/`, function (data) {
                 if (data.erro) {
-                    alert('CEP não encontrado!');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'CEP não encontrado!'
+                    });
                     $("#cep").val("");
                     return;
                 } else {
@@ -56,17 +63,26 @@ function mascaraEmail() {
         const email = $(this).val().split("@");
         if (email.length != 2 || email[1] == "") {
             $(this).val("");
-            alert('Email inválido');
+            Swal.fire({
+                icon: 'error',
+                title: 'Email inválido!'
+            });
         } else {
             if (email[1].includes('.')) {
                 const verificaPontos = email[1].split(".").find(element => element == "");
                 if (verificaPontos != undefined) {
                     $(this).val("");
-                    alert('Email inválido');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Email inválido!'
+                    });
                 }
             } else {
                 $(this).val("");
-                alert('Email inválido');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Email inválido!'
+                });
             }
         }
     });
@@ -225,9 +241,15 @@ function validarDocumento(element) {
             $(this).val("");
 
             if($('#cpf').is(':checked')) {
-                alert('CPF inválido!');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'CPF inválido!'
+                });
             } else {
-                alert('CNPJ inválido!');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'CNPJ inválido!'
+                });
             }
         }
     });
@@ -239,7 +261,11 @@ function validaNumero(element) {
         const regex = /^[0-9]*$/;
         if(!regex.test(numero)) {
             if(numero != "S/D") {
-                alert('Entrada inválida, campo aceita apenas número ou "S/D"!')
+                element.val("");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Entrada inválida, campo aceita apenas número ou "S/D"!'
+                });
             }
         }
     })
@@ -254,20 +280,29 @@ function validaTelefone(element) {
             return;
         } else if(telefone.length < 14) {
             $(this).val("");
-            alert('Tel/Cel inválido');
+            Swal.fire({
+                icon: 'error',
+                title: 'Tel/Cel inválido!'
+            });
             return;
         }
         const ddd = telefone.trim(" ");
         if(ddd[1] == "0" || (ddd[1] == "1" && ddd[2] == "0")) {
             $(this).val("");
-            alert('DDD inválido');
+            Swal.fire({
+                icon: 'error',
+                title: 'DDD inválido!'
+            });
             return;
         }
         const numerosTelefone = telefone.replace(/\-|\)|\(| /g, '').substring(2);
         const regex = /^(.)\1+$/;
         if(regex.test(numerosTelefone)) {
             $(this).val("");
-            alert('Tel/Cel inválido');
+            Swal.fire({
+                icon: 'error',
+                title: 'Tel/Cel inválido!'
+            });
         }
     });
 }

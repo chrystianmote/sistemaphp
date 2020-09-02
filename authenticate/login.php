@@ -7,6 +7,8 @@
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
+
+    <script type="text/javascript" src="../js/sweetalert2.js"></script>
 </head>
 <body>
 <?php
@@ -22,17 +24,26 @@ if (isset($_POST['login'])) {
         
         $resp = BDUtil::Login($_POST["username"], $_POST["password"]);
         if(!$resp['erro']) {
-            echo '<script>
-                    alert("Login efetuado com sucesso!");
-                </script>';
+            echo "<script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Login efetuado com sucesso!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                    setTimeout(function() {
+                        window.location.href = 'http://127.0.0.1:8000/index.php'; 
+                   }, 1000);
+                </script>";
             session_start();
             $_SESSION["authenticated"] = 'true';
-             header('Location: ../index.php');
         }
         else {
             echo "<script>
-                    alert(\"{$resp['msg']}\");
-                    window.location.href = 'http://127.0.0.1:8000/authenticate/login.php';
+                    Swal.fire({
+                        icon: 'error',
+                        title: '{$resp['msg']}'
+                    })
                 </script>";   
         }  
     } 

@@ -10,6 +10,7 @@
 
     <script src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.mask.js"></script>
+    <script type="text/javascript" src="../js/sweetalert2.js"></script>
 
 </head>
 <body>
@@ -52,51 +53,49 @@ if(isset($_GET['id'])) {
             $id = BDUtil::SetEmpresa($nome, $documento, $email, $telefone, $endereco, $numero, $bairro, $cidade, $uf);
             if ($id > 0) {
                 echo "
-                    <script type=\"text/javascript\">
-                    alert('Nova Empresa cadastrada');
+                    <script type='text/javascript'>
+                        Swal.fire({
+                            position: 'bottom-end',
+                            title: 'Nova Empresa cadastrada com sucesso',
+                            timer: 2000,
+                            timerProgressBar: true,
+                        });
                     </script>
                 ";
             } else {
                 echo "
                     <script type=\"text/javascript\">
-                    alert('Não foi possível cadastrar a nova empresa');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Não foi possível cadastrar a nova empresa!'
+                        });
                     </script>
                 ";
             }
         } else if (strlen($documento) == 14) {
-            if(isset($_GET['id'])) {
-                $id = BDUtil::UpdatePessoa($id, $nome, $documento, $email, $telefone, $endereco, $numero, $bairro, $cidade, $uf);
-                if ($id > 0) {
-                    echo "
-                        <script type=\"text/javascript\">
-                        alert('A Pessoa com nome de $nome foi atualizada com sucesso!');
-                        </script>
-                    ";
-                } else {
-                    echo "
-                        <script type=\"text/javascript\">
-                        alert('Não foi possível atualizar os dados da pessoa $nome!');
-                        </script>
-                    ";
-                }
+            $id = BDUtil::SetPessoa($nome, $documento, $email, $telefone, $endereco, $numero, $bairro, $cidade, $uf);
+            if ($id > 0) {
+                echo "
+                <script type='text/javascript'>
+                    Swal.fire({
+                        position: 'bottom-end',
+                        title: 'Nova Pessoa cadastrada com sucesso',
+                        timer: 2000,
+                        timerProgressBar: true,
+                    });
+                </script>
+            ";
             } else {
-                $id = BDUtil::SetPessoa($nome, $documento, $email, $telefone, $endereco, $numero, $bairro, $cidade, $uf);
-                if ($id > 0) {
-                    echo "
-                    <script type=\"text/javascript\">
-                    alert('Nova Pessoa cadastrada');
-                    </script>
-                ";
-                } else {
-                    echo "
-                    <script type=\"text/javascript\">
-                    alert('Não foi possível cadastrada a nova Pessoa');
-                    </script>
-                ";
-                }
+                echo "
+                <script type='text/javascript'>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Não foi possível cadastrada a nova Pessoa!'
+                    });
+                </script>
+            ";
             }
         }
-
     } catch (PDOException $e) {
         echo "<br>" . $e->getMessage();
     }
@@ -119,14 +118,22 @@ if(isset($_GET['id'])) {
             $id = BDUtil::UpdateEmpresa($_POST['id'], $nome, $documento, $email, $telefone, $endereco, $numero, $bairro, $cidade, $uf);
             if ($id > 0) {
                 echo "
-                    <script type=\"text/javascript\">
-                    alert('Os dados da empresa $nome foram atualizada com sucesso!');
+                    <script type='text/javascript'>
+                        Swal.fire({
+                            position: 'bottom-end',
+                            title: 'Os dados da empresa $nome foram atualizada com sucesso!',
+                            timer: 2000,
+                            timerProgressBar: true,
+                        });
                     </script>
                 ";
             } else {
                 echo "
-                    <script type=\"text/javascript\">
-                    alert('Não foi possível atualizar os dados da empresa $nome!');
+                    <script type='text/javascript'>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Não foi possível atualizar os dados da empresa $nome!'
+                        });
                     </script>
                 ";
             }
@@ -135,14 +142,22 @@ if(isset($_GET['id'])) {
             
             if ($id > 0) {
                 echo "
-                    <script type=\"text/javascript\">
-                    alert('Os dados da pessoa $nome foram atualizada com sucesso!');
+                    <script type='text/javascript'>
+                        Swal.fire({
+                            position: 'bottom-end',
+                            title: 'Os dados da pessoa $nome foram atualizada com sucesso!',
+                            timer: 2000,
+                            timerProgressBar: true,
+                        });
                     </script>
                 ";
             } else {
                 echo "
-                    <script type=\"text/javascript\">
-                    alert('Não foi possível atualizar os dados da pessoa $nome!');
+                    <script type='text/javascript'>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Não foi possível atualizar os dados da pessoa $nome!'
+                        });
                     </script>
                 ";
             }
