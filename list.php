@@ -15,7 +15,16 @@
 <body>
 <div class="page">
     <div class="list">
-        <h1>List</h1>
+        <div class="row">
+            <div class="col-6 d-flex justify-content-end">
+                <h1>List</h1>
+            </div>
+            <div class="col-6 d-flex justify-content-end align-self-center pr-3">
+                <form action='' method='post'>
+                    <button type="submit" value="logout" name="logout" class="btn btn-secondary">logout</button>
+                </form>
+            </div>
+        </div>
             <table class="table table-striped">
                 
                 <thead>
@@ -34,6 +43,7 @@
                 </thead>    
                 <tbody>
                 <?php
+                require('authenticate/authenticate.php');
                 include "BDUtil.php";
                 try {
                     $pessoas = BDUtil::GetPessoas();
@@ -132,13 +142,18 @@
                 } catch (PDOException $e) {
                     echo "<br>" . $e->getMessage();
                 }
+
+                if(isset($_POST['logout'])) {
+                    session_unset();
+                    echo "  <script type=\"text/javascript\">
+                                window.location.href = 'http://127.0.0.1:8000/authenticate/login.php';
+                            </script>
+                    ";
+                }
                 ?>
 
                 <?php
-
-
-                    if(isset($_POST['deleteItem']) and is_numeric($_POST['deleteItem']))
-                    {
+                    if(isset($_POST['deleteItem']) and is_numeric($_POST['deleteItem'])) {
                         $id = $_POST['deleteItem'];
                         if($_POST['tipo'] == 'f') {
                            $idDelete = BDUtil::DeletePessoa($id);

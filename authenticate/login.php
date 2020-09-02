@@ -25,16 +25,15 @@ if (isset($_POST['login'])) {
             echo '<script>
                     alert("Login efetuado com sucesso!");
                 </script>';
-            // session_start();
-            // $_SESSION["authenticated"] = 'true';
-            // header('Location: index.php');
+            session_start();
+            $_SESSION["authenticated"] = 'true';
+             header('Location: ../index.php');
         }
         else {
             echo "<script>
                     alert(\"{$resp['msg']}\");
-                </script";   
-
-            // header('Location: login.php');
+                    window.location.href = 'http://127.0.0.1:8000/authenticate/login.php';
+                </script>";   
         }  
     } 
 } 

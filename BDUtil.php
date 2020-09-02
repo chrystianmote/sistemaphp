@@ -27,7 +27,6 @@ class BDUtil
 
     public static function DeleteEmpresa($id) {
         $conn = self::OpenConnection();
-        var_dump($id);
         try {
             $sql = "DELETE FROM empresa WHERE id = $id";
 
@@ -332,7 +331,7 @@ class BDUtil
         if($user['erro']) {
             return $user;
         } else {
-            if($user['msg']['password'] == password_hash($password, PASSWORD_BCRYPT)) {
+            if(password_verify($password, $user['msg']['password'])) {
                 $user['msg']['password'] = "";
                 return $user;
             } else {

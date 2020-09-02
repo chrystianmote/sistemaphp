@@ -29,13 +29,7 @@
                          </script>';
                }
             }
-
-            // if (password_verify('rasmuslerdorf', $hash)) {
-            //     echo 'Password is valid!';
-            // } else {
-            //     echo 'Invalid password.';
-            // }
-            }
+        }
     ?>
     <div class="container d-flex justify-content-center">
         <form class="mt-2 p-4 needs-validation form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" novalidate>

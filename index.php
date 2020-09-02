@@ -15,6 +15,8 @@
 <body>
 <?php
 
+require('authenticate/authenticate.php');
+
 include "BDUtil.php";
 
 $tipo = "f";
@@ -150,15 +152,22 @@ if(isset($_GET['id'])) {
     } catch (PDOException $e) {
         echo "<br>" . $e->getMessage();
     }
+} else if(isset($_POST['logout'])) {
+    session_unset();
+    header('Location: authenticate/login.php');
 }
 ?>
 
-<div class="container">
+<div class="container  d-flex justify-content-center">
     <form class="mt-2 p-4 needs-validation form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" novalidate>
     <input type="hidden" name="id" value="<?= $id ?>" />
         <div class="form-group row">
-            <div class="col-12">
-                <h1>Cadastro</h1>
+            <div class="col-8 d-flex justify-content-end pr-4">
+                <h1 class="d-inline">Cadastro</h1>
+            </div>
+            <div class="col-4 d-flex justify-content-end">
+                    <button type="submit" value="logout" name="logout" class="btn btn-secondary" style="height: 38px;">logout</button>
+               
             </div>
         </div>
 
@@ -422,7 +431,7 @@ if(isset($_GET['id'])) {
             // Loop over them and prevent submission
             var validation = Array.prototype.filter.call(forms, function(form) {
             form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
+                if (form.checkValidity() === false && event.submitter.name != 'logout') {
                 event.preventDefault();
                 event.stopPropagation();
                 }
