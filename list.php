@@ -84,18 +84,18 @@
                             echo "<td>{$linha['bairro']}</td>";
                             echo "<td>{$linha['cidade']}</td>";
                             echo "<td>{$linha['uf']}</td>";
-                            echo "<td class=\"d-flex\">
-                                    <a href=\"index.php?id={$linha['id']}&tipo=f\" class=\"btn btn-outline-secondary mr-1\">
-                                    <svg width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" class=\"bi bi-pencil-square\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">
-                                        <path d=\"M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z\"/>
-                                        <path fill-rule=\"evenodd\" d=\"M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z\"/>
+                            echo "<td class='d-flex'>
+                                    <a href='index.php?id={$linha['id']}&tipo=f' class='btn btn-outline-secondary mr-1'>
+                                    <svg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-pencil-square' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
+                                        <path d='M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z'/>
+                                        <path fill-rule='evenodd' d='M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z'/>
                                 </svg></a>";
                             echo "<form action='' method='post'>
-                                    <input type=\"hidden\" name=\"tipo\" value='f'>
-                                    <button type=\"submit\" name=\"deleteItem\" value=\"{$linha['id']}\" class=\"btn btn-outline-danger\">
-                                        <svg width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" class=\"bi bi-trash\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">
-                                            <path d=\"M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z\"/>
-                                            <path fill-rule=\"evenodd\" d=\"M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z\"/>
+                                    <input type='hidden' name='tipo' value='f'>
+                                    <button type='submit' name='deleteItem' value='{$linha['id']}' class='btn btn-outline-danger'>
+                                        <svg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-trash' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
+                                            <path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>
+                                            <path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>
                                         </svg>
                                     </button>
                                     </form></td>";
@@ -138,18 +138,18 @@
                             echo "<td>{$linha['cidade']}</td>";
                             echo "<td>{$linha['uf']}</td>";
     
-                            echo "<td class=\"d-flex\">
-                                    <a href=\"index.php?id={$linha['id']}&tipo=j\" class=\"btn btn-outline-secondary mr-1\">
-                                    <svg width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" class=\"bi bi-pencil-square\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">
-                                        <path d=\"M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z\"/>
-                                        <path fill-rule=\"evenodd\" d=\"M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z\"/>
+                            echo "<td class='d-flex'>
+                                    <a href='index.php?id={$linha['id']}&tipo=j' class='btn btn-outline-secondary mr-1'>
+                                    <svg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-pencil-square' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
+                                        <path d='M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z'/>
+                                        <path fill-rule='evenodd' d='M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z'/>
                                 </svg></a>";
                             echo "<form action='' method='post'>
                                     <input type='hidden' name='tipo' value='j'>
-                                    <button type=\"submit\" name=\"deleteItem\" value=\"10\" class=\"btn btn-outline-danger\">
-                                            <svg width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" class=\"bi bi-trash\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">
-                                                <path d=\"M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z\"/>
-                                                <path fill-rule=\"evenodd\" d=\"M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z\"/>
+                                    <button type='submit' name='deleteItem' value='{$linha['id']}' class='btn btn-outline-danger'>
+                                            <svg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-trash' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
+                                                <path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>
+                                                <path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>
                                             </svg>
                                     </button>
                                 </form></td>";
@@ -158,7 +158,6 @@
                         }
                     }                
                               
-
                 } catch (PDOException $e) {
                     echo "<br>" . $e->getMessage();
                 }
@@ -166,59 +165,6 @@
                 if(isset($_POST['logout'])) {
                     session_unset();
                 }
-                ?>
-
-                <?php
-                    if(isset($_POST['deleteItem']) and is_numeric($_POST['deleteItem'])) {
-                        $id = $_POST['deleteItem'];
-                        if($_POST['tipo'] == 'f') {
-                           $idDelete = BDUtil::DeletePessoa($id);
-                           if ($idDelete) {
-                            echo "
-                                <script type='text/javascript'>
-                                    window.location.href = 'http://127.0.0.1:8000/list.php';
-                                </script>
-                            ";
-                            } else {
-                                return false;
-                                echo "
-                                    <script type='text/javascript'>
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: 'Não foi possível deletar os dados dessa pessoa!'
-                                        });
-                                    </script>
-                                ";
-                            }
-                        } else if($_POST['tipo'] == 'j') {
-                            $idDelete = BDUtil::DeleteEmpresa($id);
-                           if ($idDelete) {
-                            echo "
-                                <script type='text/javascript'>
-                                    Swal.fire({
-                                        icon: 'sucess',
-                                        position: 'bottom-end',
-                                        showConfirmButton: false,
-                                        title: 'Empresa deletada com com sucesso',
-                                    });
-                                    setTimeout(function() {
-                                        window.location.href = 'http://127.0.0.1:8000/list.php';
-                                   }, 1000);
-                                    
-                                </script>
-                            ";
-                            } else {
-                                echo "
-                                    <script type='text/javascript'>
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: 'Não foi possível deletar os dados dessa empresa!'
-                                        });
-                                    </script>
-                                ";
-                            }
-                        }
-                    }
                 ?>
                 <script type="text/javascript" src="/js/list.js"></script>
                 <script type="text/javascript">
