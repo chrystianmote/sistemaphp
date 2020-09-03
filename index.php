@@ -169,7 +169,6 @@ if(isset($_GET['id'])) {
     }
 } else if(isset($_POST['logout'])) {
     session_unset();
-    header('Location: authenticate/login.php');
 }
 ?>
 
@@ -181,8 +180,7 @@ if(isset($_GET['id'])) {
                 <h1 class="d-inline">Cadastro</h1>
             </div>
             <div class="col-4 d-flex justify-content-end">
-                    <button type="submit" value="logout" name="logout" class="btn btn-secondary" style="height: 38px;">logout</button>
-               
+                <button type="submit" value="logout" name="logout" class="btn btn-secondary" style="height: 38px;">logout</button>
             </div>
         </div>
 
@@ -466,6 +464,7 @@ if(isset($_GET['id'])) {
         validarDocumento($("#documento"));
         validaNumero($("#numero"));
         validaTelefone($("#telefone"));
+        logout($("button[name='logout']"));
     });
 </script>
 

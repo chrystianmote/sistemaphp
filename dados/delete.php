@@ -1,4 +1,6 @@
 <?php 
+    require('../authenticate/authenticate.php');
+
     include "../BDUtil.php";
 
     if(isset($_POST['deleteItem']) and is_numeric($_POST['deleteItem'])) {

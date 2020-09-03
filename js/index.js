@@ -55,6 +55,33 @@ function cep() {
     })
 }
 
+function logout(element) {
+    element.on('click', function (event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Tem certeza que deseja sair?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim'
+        }).then((result) => {
+            if (result.value) {
+                $.post(`http://127.0.0.1:8000/list.php`, { logout: true })
+                    .done(function (msg) {
+                        window.location.href = 'http://127.0.0.1:8000/authenticate/login.php';
+                    })
+                    .fail(function (xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Não foi possível fazer logout'
+                        });
+                    });
+            }
+        })
+    });
+}
+
 function mascaraEmail() {
     $("#email").on('blur', function () {
         if ($(this).val() == "") {
