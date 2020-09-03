@@ -45,24 +45,23 @@
                 <tbody>
                 <?php
                 require('authenticate/authenticate.php');
+                
                 include "BDUtil.php";
                 try {
                     $pessoas = BDUtil::GetPessoas();
                     $empresas = BDUtil::GetEmpresas();
+
                     if($pessoas['erro']) {
-                    echo  "<script type='text/javascript'>
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: '{$pessoas['msg']}'
-                                });
-                            </script>";
-                    } else if ($empresas['erro']) {
                         echo  "<script type='text/javascript'>
                                 Swal.fire({
-                                    icon: 'error',
-                                    title: '{$empresas['msg']}'
+                                    position: 'bottom-end',
+                                    timer: 2000,
+                                    timerProgressBar: true,
+                                    title: '{$pessoas['msg']}',
+                                    showCloseButton: true,
+                                    showConfirmButton: false
                                 });
-                               </script>"; 
+                            </script>";
                     } else {
                         for($i = 0; $i < count($pessoas['msg']);$i++) {
                             $linha = $pessoas['msg'][$i];
@@ -99,11 +98,24 @@
                                             <path fill-rule=\"evenodd\" d=\"M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z\"/>
                                         </svg>
                                     </button>
-                                 </form></td>";
+                                    </form></td>";
                                 
                             echo "</tr>";
                         }
+                    }
 
+                    if ($empresas['erro']) {
+                        echo  "<script type='text/javascript'>
+                                    Swal.fire({
+                                        position: 'bottom-end',
+                                        timer: 2000,
+                                        timerProgressBar: true,
+                                        title: '{$empresas['msg']}',
+                                        showCloseButton: true,
+                                        showConfirmButton: false
+                                    });
+                                </script>"; 
+                    } else {
                         for($i = 0; $i < count($empresas['msg']);$i++) {
                             $linha = $empresas['msg'][$i];
                             echo "<tr>";
@@ -134,7 +146,7 @@
                                 </svg></a>";
                             echo "<form action='' method='post'>
                                     <input type='hidden' name='tipo' value='j'>
-                                    <button type=\"submit\" name=\"deleteItem\" value=\"{$linha['id']}\" class=\"btn btn-outline-danger\">
+                                    <button type=\"submit\" name=\"deleteItem\" value=\"10\" class=\"btn btn-outline-danger\">
                                             <svg width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" class=\"bi bi-trash\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">
                                                 <path d=\"M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z\"/>
                                                 <path fill-rule=\"evenodd\" d=\"M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z\"/>
@@ -144,7 +156,8 @@
                                 
                             echo "</tr>";
                         }
-                    }                  
+                    }                
+                              
 
                 } catch (PDOException $e) {
                     echo "<br>" . $e->getMessage();
@@ -152,10 +165,6 @@
 
                 if(isset($_POST['logout'])) {
                     session_unset();
-                    echo "  <script type=\"text/javascript\">
-                                window.location.href = 'http://127.0.0.1:8000/authenticate/login.php';
-                            </script>
-                    ";
                 }
                 ?>
 
@@ -171,6 +180,7 @@
                                 </script>
                             ";
                             } else {
+                                return false;
                                 echo "
                                     <script type='text/javascript'>
                                         Swal.fire({
@@ -185,7 +195,16 @@
                            if ($idDelete) {
                             echo "
                                 <script type='text/javascript'>
-                                    window.location.href = 'http://127.0.0.1:8000/list.php';
+                                    Swal.fire({
+                                        icon: 'sucess',
+                                        position: 'bottom-end',
+                                        showConfirmButton: false,
+                                        title: 'Empresa deletada com com sucesso',
+                                    });
+                                    setTimeout(function() {
+                                        window.location.href = 'http://127.0.0.1:8000/list.php';
+                                   }, 1000);
+                                    
                                 </script>
                             ";
                             } else {
@@ -202,6 +221,12 @@
                     }
                 ?>
                 <script type="text/javascript" src="/js/list.js"></script>
+                <script type="text/javascript">
+                    jQuery(document).ready(function ($) {
+                        deleteButton($("button[name='deleteItem']"));
+                        logout($("button[name='logout']"));
+                    });
+                </script>
                 </tbody>
             </table>
     </div>

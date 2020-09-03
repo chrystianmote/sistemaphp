@@ -466,7 +466,6 @@ if(isset($_GET['id'])) {
         validarDocumento($("#documento"));
         validaNumero($("#numero"));
         validaTelefone($("#telefone"));
-        $()
     });
 </script>
 

@@ -58,7 +58,7 @@ class BDUtil
             }
 
         } catch (Exception $e) {
-            return $e->getMessage();
+            return false;
         }
     }
 
@@ -266,7 +266,7 @@ class BDUtil
             if ($resultado->rowCount() == 0) {
 
                 $resp['erro'] = true;
-                $resp['msg'] = 'Nenhum resultado';
+                $resp['msg'] = 'Nenhuma pessoa encontrada!';
 
             } else {
 
@@ -301,7 +301,7 @@ class BDUtil
 
             if ($resultado->rowCount() == 0) {
                 $resp['erro'] = true;
-                $resp['msg'] = 'Nenhum resultado';
+                $resp['msg'] = 'Nenhuma empresa encontrada!';
 
             } else {
 
