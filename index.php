@@ -465,6 +465,8 @@ if(isset($_GET['id'])) {
         validaNumero($("#numero"));
         validaTelefone($("#telefone"));
         logout($("button[name='logout']"));
+        salvar($("button[name='salvar']"));
+        select($("select"));
     });
 </script>
 

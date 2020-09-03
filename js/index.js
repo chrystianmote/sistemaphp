@@ -123,6 +123,69 @@ function mascaraTelefone(element) {
     }
 }
 
+function salvar(element) {
+    element.on('click', function (event) {
+        let data = {};
+        event.preventDefault();
+        $("input[type='text']").serializeArray().forEach(element => {
+           data[element.name] = element.value;
+        });
+        data['email'] = $("input[type='email']").val();
+        data['uf'] = $("option[selected]").val();
+        console.log(data);
+        const cpf = $("#cpf").attr("checked");
+        // Swal.fire({
+        //     title: cpf ? "Tem certeza que deseja salvar os dados dessa pessoa?" : "Tem certeza que deseja salvar os dados dessa empresa?",
+        //     icon: 'info',
+        //     showCancelButton: true,
+        //     confirmButtonColor: '#3085d6',
+        //     cancelButtonColor: '#d33',
+        //     confirmButtonText: 'Sim, pode salvar!'
+        // }).then((result) => {
+        //     if (result.value) {
+        //         $.post(`http://127.0.0.1:8000/dados/create.php`, { salvar: true })
+        //             .done(function (data) {
+        //                 const resp = JSON.parse(data);
+        //                 if (resp.erro) {
+        //                     Swal.fire({
+        //                         icon: 'error',
+        //                         title: 'Ocorreu um erro!',
+        //                         text: resp.msg,
+        //                         showConfirmButton: false,
+        //                         timer: 2000
+        //                     });
+        //                 } else {
+        //                     Swal.fire({
+        //                         icon: 'success',
+        //                         title: 'Deletado!',
+        //                         text: resp.msg,
+        //                         showConfirmButton: false,
+        //                         timer: 1500
+        //                     });
+        //                     setTimeout(function() {
+        //                         window.location.href = 'http://127.0.0.1:8000/list.php'; 
+        //                    }, 1500);
+        //                 }
+        //             })
+        //             .fail(function (xhr, status, error) {
+        //                 Swal.fire({
+        //                     icon: 'error',
+        //                     title: doc == 'f' ? 'Não foi possível deletar os dados dessa pessoa!' : 'Não foi possível deletar os dados dessa empresa!'
+        //                 });
+        //             });
+        //     }
+        // })
+    })
+}
+
+function select(element) {
+    element.on('change', function() {
+        $("option[value=" + this.value + "]", this)
+        .attr("selected", true).siblings()
+        .removeAttr("selected")
+    })
+}
+
 function SetMascaras() {
     
     $("#telefone").mask('(00) 00000-0000');
