@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" href="download.png" type="image/png" sizes="16x16">
-    
+
+    <script src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/sweetalert2.js"></script>
 </head>
 <body>
@@ -76,26 +77,11 @@
             </div>
         </form>
     </div>
-    
+    <script type="text/javascript" src="../js/register.js"></script>
     <script type="text/javascript">
-
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
-                event.preventDefault();
-                event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-            });
-        }, false);
-    })();
-</script>
+        jQuery(document).ready(function ($) {
+            registrar($("button"));
+        });
+    </script>
 </body>
 </html>
