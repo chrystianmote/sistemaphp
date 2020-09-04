@@ -1,24 +1,3 @@
-function mudarNomeCampos() {
-    $("input[type='radio']").click(function (e) {
-        if (this.id == 'cpf') {
-            $(".lbname").html("Nome:");
-            $(".lbdocumento").html("CPF:");
-            $('input[name=nome]').attr('placeholder', 'Nome');
-            $('input[name=documento]').attr('placeholder', 'CPF');
-            $("#documento").val('');
-            $("#documento").mask('000.000.000-00');
-        } else {
-
-            $(".lbname").html("Razão Social:");
-            $(".lbdocumento").html("CNPJ:");
-            $('input[name=nome]').attr('placeholder', 'Razão Social');
-            $('input[name=documento]').attr('placeholder', 'CNPJ');
-            $("#documento").val('');
-            $("#documento").mask('00.000.000/0000-00');
-        }
-    });
-}
-
 function cep() {
     $("#cep").on('blur', function (e) {
         const cep = $(this).val().replace('-', '');
@@ -125,10 +104,34 @@ function mascaraTelefone(element) {
     }
 }
 
+function mudarNomeCampos() {
+    $("input[type='radio']").click(function (e) {
+        if (this.id == 'cpf') {
+            $(".lbname").html("Nome:");
+            $(".lbdocumento").html("CPF:");
+            $('input[name=nome]').attr('placeholder', 'Nome');
+            $('input[name=documento]').attr('placeholder', 'CPF');
+            $("#documento").val('');
+            $("#documento").mask('000.000.000-00');
+        } else {
+
+            $(".lbname").html("Razão Social:");
+            $(".lbdocumento").html("CNPJ:");
+            $('input[name=nome]').attr('placeholder', 'Razão Social');
+            $('input[name=documento]').attr('placeholder', 'CNPJ');
+            $("#documento").val('');
+            $("#documento").mask('00.000.000/0000-00');
+        }
+    });
+}
+
 function salvar(element) {
     element.on('click', function (event) {
         let data = {};
         event.preventDefault();
+        if(!validaForm()) {
+            return;
+        }
         $("input[type='text']").serializeArray().forEach(element => {
             if(element.name != "cep") {
                 data[element.name] = element.value;
@@ -179,12 +182,12 @@ function salvar(element) {
                     .fail(function (xhr, status, error) {
                         Swal.fire({
                             icon: 'error',
-                            title: doc == 'f' ? 'Não foi possível deletar os dados dessa pessoa!' : 'Não foi possível deletar os dados dessa empresa!'
+                            title: doc == 'f' ? 'Não foi possível salvar os dados dessa pessoa!' : 'Não foi possível salvar os dados dessa empresa!'
                         });
                     });
             }
         })
-    })
+    });
 }
 
 function select(element) {
@@ -210,6 +213,77 @@ function SetMascaras() {
         $("#documento").mask('00.000.000/0000-00');
     }
 
+}
+
+function update(element) {
+    element.on('click', function (event) {
+        let data = {};
+        const url = window.location.search;
+        const id = url.substring(url.lastIndexOf('d') + 2, url.lastIndexOf('&'));
+        event.preventDefault();
+        if(!validaForm()) {
+            return ;
+        }
+        $("input[type='text']").serializeArray().forEach(element => {
+            if(element.name != "cep") {
+                data[element.name] = element.value;
+            }
+        });
+        data['email'] = $("input[type='email']").val();
+        data['uf'] = $("option[selected='selected']").val();
+        data['atualizar'] = true;
+        data['id'] = id;
+        const cpf = $('#cpf').is(':checked');
+        Swal.fire({
+            title: cpf ? "Tem certeza que deseja atualizar os dados dessa pessoa?" : "Tem certeza que deseja atualizar os dados dessa empresa?",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, pode atualizar!'
+        }).then((result) => {
+            if (result.value) {
+                $.post(`http://127.0.0.1:8000/dados/update.php`, data)
+                    .done(function (msg) {
+
+                        const resp = JSON.parse(msg);
+                        if (!resp.erro) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: cpf ? 'Os dados dessa pessoa foram atualizado com sucesso!': 'Os dados dessa empresa foram atualizado com sucesso!',
+                                text: resp.msg,
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            setTimeout(function() {
+                                window.location.href = 'http://127.0.0.1:8000/index.php'; 
+                           }, 1500);
+                           
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Ocorreu um erro!',
+                                text: resp.msg,
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                            setTimeout(function() {
+                                window.location.href = 'http://127.0.0.1:8000/list.php'; 
+                           }, 2000);
+                        }
+                    })
+                    .fail(function (xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: doc == 'f' ? 'Não foi possível atualizar os dados dessa pessoa!' : 'Não foi possível atualizar os dados dessa empresa!'
+                        });
+                        setTimeout(function() {
+                            window.location.href = 'http://127.0.0.1:8000/list.php'; 
+                       }, 1500);
+                    });
+            }
+        })
+    });
 }
 
 function validaCpfCnpj(val) {
@@ -354,6 +428,16 @@ function validarDocumento(element) {
     });
 }
 
+function validaForm() {
+    const form =  document.getElementsByClassName('needs-validation')[0];
+    if (form.checkValidity() === false) {
+        form.classList.add('was-validated');
+        return false;
+    }
+    form.classList.add('was-validated');
+    return true;
+}
+
 function validaNumero(element) {
     element.on('blur', function () {
         const numero = $(this).val();
@@ -369,6 +453,7 @@ function validaNumero(element) {
         }
     })
 }
+
 function validaTelefone(element) {
     element.on('change keyup', function(){
         mascaraTelefone(element);

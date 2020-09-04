@@ -37,71 +37,6 @@ if(isset($_GET['id'])) {
         $uf = $dado['msg']['uf'];
     }
     
-} else if (isset($_POST['salvar'])) {
-
-    $nome = $_POST['nome'];
-    $documento = $_POST['documento'];
-    $email = $_POST['email'];
-    $telefone = $_POST['telefone'] ? $_POST['telefone'] : "";
-    $endereco = $_POST['endereco'] ? $_POST['endereco'] : "";
-    $numero = $_POST['numero'] != "S/D" ? $_POST['numero'] : 0;
-    $bairro = $_POST['bairro'] ? $_POST['bairro'] : "";
-    $cidade = $_POST['cidade'] ? $_POST['cidade'] : "";
-    $uf = $_POST['uf'] ? $_POST['uf'] : "";
-
-    try {
-        if (strlen($documento) == 18) {
-            $id = BDUtil::SetEmpresa($nome, $documento, $email, $telefone, $endereco, $numero, $bairro, $cidade, $uf);
-            if ($id > 0) {
-                echo "
-                    <script type='text/javascript'>
-                        Swal.fire({
-                            position: 'bottom-end',
-                            title: 'Nova Empresa cadastrada com sucesso',
-                            timer: 2000,
-                            timerProgressBar: true,
-                        });
-                    </script>
-                ";
-            } else {
-                echo "
-                    <script type=\"text/javascript\">
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Não foi possível cadastrar a nova empresa!'
-                        });
-                    </script>
-                ";
-            }
-        } else if (strlen($documento) == 14) {
-            $id = BDUtil::SetPessoa($nome, $documento, $email, $telefone, $endereco, $numero, $bairro, $cidade, $uf);
-            if ($id > 0) {
-                echo "
-                <script type='text/javascript'>
-                    Swal.fire({
-                        position: 'bottom-end',
-                        title: 'Nova Pessoa cadastrada com sucesso',
-                        timer: 2000,
-                        timerProgressBar: true,
-                    });
-                </script>
-            ";
-            } else {
-                echo "
-                <script type='text/javascript'>
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Não foi possível cadastrada a nova Pessoa!'
-                    });
-                </script>
-            ";
-            }
-        }
-    } catch (PDOException $e) {
-        echo "<br>" . $e->getMessage();
-    }
-
-    $_POST['salvar'] = null;
 } else if (isset($_POST['atualizar'])) {
 
     $nome = $_POST['nome'];
@@ -378,34 +313,34 @@ if(isset($_GET['id'])) {
                                 value="<?php if(isset($_GET['id'])) {
                                                     echo $dado['msg']['uf'];
                                              } ?>" required>
-                                <option value="" <?php echo $uf =="" ?'selected':'';?>></option>
-                                <option value="AC" <?php echo $uf =="AC" ?'selected':'';?>>Acre</option>
-                                <option value="AL" <?php echo $uf =="AL" ?'selected':'';?>>Alagoas</option>
-                                <option value="AP" <?php echo $uf =="AP" ?'selected':'';?>>Amapá</option>
-                                <option value="AM" <?php echo $uf =="AM" ?'selected':'';?>>Amazonas</option>
-                                <option value="BA" <?php echo $uf =="BA" ?'selected':'';?>>Bahia</option>
-                                <option value="CE" <?php echo $uf =="CE" ?'selected':'';?>>Ceará</option>
-                                <option value="DF" <?php echo $uf =="DF" ?'selected':'';?>>Distrito Federal</option>
-                                <option value="ES" <?php echo $uf =="ES" ?'selected':'';?>>Espírito Santo</option>
-                                <option value="GO" <?php echo $uf =="GO" ?'selected':'';?>>Goiás</option>
-                                <option value="MA" <?php echo $uf =="MA" ?'selected':'';?>>Maranhão</option>
-                                <option value="MT" <?php echo $uf =="MT" ?'selected':'';?>>Mato Grosso</option>
-                                <option value="MS" <?php echo $uf =="MS" ?'selected':'';?>>Mato Grosso do Sul</option>
-                                <option value="MG" <?php echo $uf =="MG" ?'selected':'';?>>Minas Gerais</option>
-                                <option value="PA" <?php echo $uf =="PA" ?'selected':'';?>>Pará</option>
-                                <option value="PB" <?php echo $uf =="PB" ?'selected':'';?>>Paraíba</option>
-                                <option value="PR" <?php echo $uf =="PR" ?'selected':'';?>>Paraná</option>
-                                <option value="PE" <?php echo $uf =="PE" ?'selected':'';?>>Pernambuco</option>
-                                <option value="PI" <?php echo $uf =="PI" ?'selected':'';?>>Piauí</option>
-                                <option value="RJ" <?php echo $uf =="RJ" ?'selected':'';?>>Rio de Janeiro</option>
-                                <option value="RN" <?php echo $uf =="RN" ?'selected':'';?>>Rio Grande do Norte</option>
-                                <option value="RS" <?php echo $uf =="RS" ?'selected':'';?>>Rio Grande do Sul</option>
-                                <option value="RO" <?php echo $uf =="RO" ?'selected':'';?>>Rondônia</option>
-                                <option value="RR" <?php echo $uf =="RR" ?'selected':'';?>>Roraima</option>
-                                <option value="SC" <?php echo $uf =="SC" ?'selected':'';?>>Santa Catarina</option>
-                                <option value="SP" <?php echo $uf =="SP" ?'selected':'';?>>São Paulo</option>
-                                <option value="SE" <?php echo $uf =="SE" ?'selected':'';?>>Sergipe</option>
-                                <option value="TO" <?php echo $uf =="TO" ?'selected':'';?>>Tocantins</option>
+                                <option value="" <?php echo $uf =="" ?'selected="selected"':'';?>></option>
+                                <option value="AC" <?php echo $uf =="AC" ?'selected="selected"':'';?>>Acre</option>
+                                <option value="AL" <?php echo $uf =="AL" ?'selected="selected"':'';?>>Alagoas</option>
+                                <option value="AP" <?php echo $uf =="AP" ?'selected="selected"':'';?>>Amapá</option>
+                                <option value="AM" <?php echo $uf =="AM" ?'selected="selected"':'';?>>Amazonas</option>
+                                <option value="BA" <?php echo $uf =="BA" ?'selected="selected"':'';?>>Bahia</option>
+                                <option value="CE" <?php echo $uf =="CE" ?'selected="selected"':'';?>>Ceará</option>
+                                <option value="DF" <?php echo $uf =="DF" ?'selected="selected"':'';?>>Distrito Federal</option>
+                                <option value="ES" <?php echo $uf =="ES" ?'selected="selected"':'';?>>Espírito Santo</option>
+                                <option value="GO" <?php echo $uf =="GO" ?'selected="selected"':'';?>>Goiás</option>
+                                <option value="MA" <?php echo $uf =="MA" ?'selected="selected"':'';?>>Maranhão</option>
+                                <option value="MT" <?php echo $uf =="MT" ?'selected="selected"':'';?>>Mato Grosso</option>
+                                <option value="MS" <?php echo $uf =="MS" ?'selected="selected"':'';?>>Mato Grosso do Sul</option>
+                                <option value="MG" <?php echo $uf =="MG" ?'selected="selected"':'';?>>Minas Gerais</option>
+                                <option value="PA" <?php echo $uf =="PA" ?'selected="selected"':'';?>>Pará</option>
+                                <option value="PB" <?php echo $uf =="PB" ?'selected="selected"':'';?>>Paraíba</option>
+                                <option value="PR" <?php echo $uf =="PR" ?'selected="selected"':'';?>>Paraná</option>
+                                <option value="PE" <?php echo $uf =="PE" ?'selected="selected"':'';?>>Pernambuco</option>
+                                <option value="PI" <?php echo $uf =="PI" ?'selected="selected"':'';?>>Piauí</option>
+                                <option value="RJ" <?php echo $uf =="RJ" ?'selected="selected"':'';?>>Rio de Janeiro</option>
+                                <option value="RN" <?php echo $uf =="RN" ?'selected="selected"':'';?>>Rio Grande do Norte</option>
+                                <option value="RS" <?php echo $uf =="RS" ?'selected="selected"':'';?>>Rio Grande do Sul</option>
+                                <option value="RO" <?php echo $uf =="RO" ?'selected="selected"':'';?>>Rondônia</option>
+                                <option value="RR" <?php echo $uf =="RR" ?'selected="selected"':'';?>>Roraima</option>
+                                <option value="SC" <?php echo $uf =="SC" ?'selected="selected"':'';?>>Santa Catarina</option>
+                                <option value="SP" <?php echo $uf =="SP" ?'selected="selected"':'';?>>São Paulo</option>
+                                <option value="SE" <?php echo $uf =="SE" ?'selected="selected"':'';?>>Sergipe</option>
+                                <option value="TO" <?php echo $uf =="TO" ?'selected="selected"':'';?>>Tocantins</option>
                             </select>
                             <div class="invalid-feedback">
                                 Campo obrigatório
@@ -434,27 +369,6 @@ if(isset($_GET['id'])) {
 
 <script type="text/javascript" src="js/index.js"></script>
 
-
-<script type="text/javascript">
-
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false && event.submitter.name != 'logout') {
-                event.preventDefault();
-                event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-            });
-        }, false);
-    })();
-</script>
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
 
@@ -468,6 +382,7 @@ if(isset($_GET['id'])) {
         logout($("button[name='logout']"));
         salvar($("button[name='salvar']"));
         select($("select"));
+        update($("button[name='atualizar']"));
     });
 </script>
 
