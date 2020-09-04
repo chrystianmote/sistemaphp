@@ -13,37 +13,6 @@
     <script type="text/javascript" src="../js/sweetalert2.js"></script>
 </head>
 <body>
-    <?php 
-        include "../BDUtil.php";
-        
-        if(isset($_POST['registrar'])) {
-            if(isset($_POST['username']) && isset($_POST['password'])) {
-               $id = BDUtil::SetUser($_POST['username'],$_POST['password']);
-               if($id > 0) {
-                    echo "<script>
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Usuário cadastrado com sucesso!'
-                            });
-                         </script>";
-               } else if ($id == -1) {
-                    echo "<script>
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'O username já esta sendo utilizado!'
-                            });
-                         </script>";
-               } else {
-                    echo "<script>
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Não foi possível cadastrar o usuário!'
-                            });
-                         </script>";
-               }
-            }
-        }
-    ?>
     <div class="container d-flex justify-content-center">
         <form class="mt-2 p-4 needs-validation form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" novalidate>
             <div class="form-group row">

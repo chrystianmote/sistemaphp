@@ -26,9 +26,7 @@ function deleteButton(element) {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Ocorreu um erro!',
-                                text: resp.msg,
-                                showConfirmButton: false,
-                                timer: 2000
+                                text: resp.msg
                             });
                         } else {
                             Swal.fire({

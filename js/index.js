@@ -170,13 +170,8 @@ function salvar(element) {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Ocorreu um erro!',
-                                text: resp.msg,
-                                showConfirmButton: false,
-                                timer: 2000
-                            });
-                            setTimeout(function() {
-                                window.location.href = 'http://127.0.0.1:8000/index.php'; 
-                           }, 2000);
+                                text: resp.msg
+                            })
                         }
                     })
                     .fail(function (xhr, status, error) {
@@ -264,22 +259,14 @@ function update(element) {
                                 icon: 'error',
                                 title: 'Ocorreu um erro!',
                                 text: resp.msg,
-                                showConfirmButton: false,
-                                timer: 2000
-                            });
-                            setTimeout(function() {
-                                window.location.href = 'http://127.0.0.1:8000/list.php'; 
-                           }, 2000);
+                            })
                         }
                     })
                     .fail(function (xhr, status, error) {
                         Swal.fire({
                             icon: 'error',
                             title: doc == 'f' ? 'Não foi possível atualizar os dados dessa pessoa!' : 'Não foi possível atualizar os dados dessa empresa!'
-                        });
-                        setTimeout(function() {
-                            window.location.href = 'http://127.0.0.1:8000/list.php'; 
-                       }, 1500);
+                        })
                     });
             }
         })

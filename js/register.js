@@ -36,13 +36,12 @@ function registrar(element) {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Ocorreu um erro!',
-                                text: resp.msg,
-                                showConfirmButton: false,
-                                timer: 2000
+                                text: resp.msg
+                            }).then(function() {
+                                if(resp.msg == 'O username já esta sendo utilizado!'){
+                                    $("#username").val("");
+                                }
                             });
-                            setTimeout(function() {
-                                window.location.href = 'http://127.0.0.1:8000/authenticate/register.php'; 
-                           }, 2000);
                         }
                     })
                     .fail(function (xhr, status, error) {
