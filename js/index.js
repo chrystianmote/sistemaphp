@@ -48,7 +48,9 @@ function cep() {
                     $('#endereco').val(data.logradouro);
                     $('#bairro').val(data.bairro);
                     $('#cidade').val(data.localidade);
-                    $('#uf').val(data.uf);
+                    $("option[value=" + data.uf + "]")
+                        .attr("selected", true).siblings()
+                        .removeAttr("selected");
                 }
             }
         )
@@ -128,53 +130,60 @@ function salvar(element) {
         let data = {};
         event.preventDefault();
         $("input[type='text']").serializeArray().forEach(element => {
-           data[element.name] = element.value;
+            if(element.name != "cep") {
+                data[element.name] = element.value;
+            }
         });
         data['email'] = $("input[type='email']").val();
-        data['uf'] = $("option[selected]").val();
-        console.log(data);
-        const cpf = $("#cpf").attr("checked");
-        // Swal.fire({
-        //     title: cpf ? "Tem certeza que deseja salvar os dados dessa pessoa?" : "Tem certeza que deseja salvar os dados dessa empresa?",
-        //     icon: 'info',
-        //     showCancelButton: true,
-        //     confirmButtonColor: '#3085d6',
-        //     cancelButtonColor: '#d33',
-        //     confirmButtonText: 'Sim, pode salvar!'
-        // }).then((result) => {
-        //     if (result.value) {
-        //         $.post(`http://127.0.0.1:8000/dados/create.php`, { salvar: true })
-        //             .done(function (data) {
-        //                 const resp = JSON.parse(data);
-        //                 if (resp.erro) {
-        //                     Swal.fire({
-        //                         icon: 'error',
-        //                         title: 'Ocorreu um erro!',
-        //                         text: resp.msg,
-        //                         showConfirmButton: false,
-        //                         timer: 2000
-        //                     });
-        //                 } else {
-        //                     Swal.fire({
-        //                         icon: 'success',
-        //                         title: 'Deletado!',
-        //                         text: resp.msg,
-        //                         showConfirmButton: false,
-        //                         timer: 1500
-        //                     });
-        //                     setTimeout(function() {
-        //                         window.location.href = 'http://127.0.0.1:8000/list.php'; 
-        //                    }, 1500);
-        //                 }
-        //             })
-        //             .fail(function (xhr, status, error) {
-        //                 Swal.fire({
-        //                     icon: 'error',
-        //                     title: doc == 'f' ? 'Não foi possível deletar os dados dessa pessoa!' : 'Não foi possível deletar os dados dessa empresa!'
-        //                 });
-        //             });
-        //     }
-        // })
+        data['uf'] = $("option[selected='selected']").val();
+        data['salvar'] = true;
+        const cpf = $('#cpf').is(':checked');
+        Swal.fire({
+            title: cpf ? "Tem certeza que deseja salvar os dados dessa pessoa?" : "Tem certeza que deseja salvar os dados dessa empresa?",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, pode salvar!'
+        }).then((result) => {
+            if (result.value) {
+                $.post(`http://127.0.0.1:8000/dados/create.php`, data)
+                    .done(function (msg) {
+
+                        const resp = JSON.parse(msg);
+                        if (!resp.erro) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: cpf ? 'Pessoa criada com sucesso!': 'Empresa criada com sucesso!',
+                                text: resp.msg,
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            setTimeout(function() {
+                                window.location.href = 'http://127.0.0.1:8000/index.php'; 
+                           }, 1500);
+                           
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Ocorreu um erro!',
+                                text: resp.msg,
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                            setTimeout(function() {
+                                window.location.href = 'http://127.0.0.1:8000/index.php'; 
+                           }, 2000);
+                        }
+                    })
+                    .fail(function (xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: doc == 'f' ? 'Não foi possível deletar os dados dessa pessoa!' : 'Não foi possível deletar os dados dessa empresa!'
+                        });
+                    });
+            }
+        })
     })
 }
 

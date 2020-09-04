@@ -14,7 +14,7 @@
         $bairro = $_POST['bairro'] ? $_POST['bairro'] : "";
         $cidade = $_POST['cidade'] ? $_POST['cidade'] : "";
         $uf = $_POST['uf'] ? $_POST['uf'] : "";
-
+        
         try {
             if (strlen($documento) == 18) {
                 $id = BDUtil::SetEmpresa($nome, $documento, $email, $telefone, $endereco, $numero, $bairro, $cidade, $uf);
