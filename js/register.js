@@ -27,11 +27,7 @@ function registrar(element) {
                                 text: resp.msg,
                                 showConfirmButton: false,
                                 timer: 1500
-                            });
-                            setTimeout(function() {
-                                window.location.href = 'http://127.0.0.1:8000/index.php'; 
-                           }, 1500);
-                           
+                            }).then(()=> window.location.href = 'http://127.0.0.1:8000/index.php');                           
                         } else {
                             Swal.fire({
                                 icon: 'error',

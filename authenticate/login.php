@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="download.png" type="image/png" sizes="16x16">
+    <link rel="icon" href="/download.png" type="image/png" sizes="16x16">
     
     <script type="text/javascript" src="../js/sweetalert2.js"></script>
 </head>
@@ -31,10 +31,7 @@ if (isset($_POST['login'])) {
                         title: 'Login efetuado com sucesso!',
                         showConfirmButton: false,
                         timer: 1000
-                    });
-                    setTimeout(function() {
-                        window.location.href = 'http://127.0.0.1:8000/index.php'; 
-                   }, 1000);
+                    }).then(() => window.location.href = 'http://127.0.0.1:8000/index.php');
                 </script>";
             session_start();
             $_SESSION["authenticated"] = 'true';

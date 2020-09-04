@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="download.png" type="image/png" sizes="16x16">
+    <link rel="icon" href="/download.png" type="image/png" sizes="16x16">
 
     <script src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/sweetalert2.js"></script>
