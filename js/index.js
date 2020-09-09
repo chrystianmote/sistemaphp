@@ -176,37 +176,44 @@ function salvar(element) {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Sim, pode salvar!'
+            confirmButtonText: 'Sim, pode salvar!',
         }).then((result) => {
-            if (result.value) {
-                $.post(`http://127.0.0.1:8000/dados/create.php`, data)
-                    .done(function (msg) {
-
-                        const resp = JSON.parse(msg);
-                        if (!resp.erro) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: cpf ? 'Pessoa criada com sucesso!': 'Empresa criada com sucesso!',
-                                text: resp.msg,
-                                showConfirmButton: false,
-                                timer: 2500,
-                                timerProgressBar: true,
-                            }).then(() => window.location.href = 'http://127.0.0.1:8000/index.php');                           
-                        } else {
+            Swal.fire({
+                html: "<div class='mySpinner'><div class='half-circle-spinner'><div class='circle circle-1'></div> <div class='circle circle-2'></div></div></div>",
+                background: "rgba(0,0,0,0)",
+                showConfirmButton: false,
+                timer: 2500
+            })
+            setTimeout(function() {
+                if (result.value) {
+                    $.post(`http://127.0.0.1:8000/dados/create.php`, data)
+                        .done(function (msg) {
+                            const resp = JSON.parse(msg);
+                            if (!resp.erro) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: cpf ? 'Pessoa criada com sucesso!': 'Empresa criada com sucesso!',
+                                    text: resp.msg,
+                                    showConfirmButton: false,
+                                    timer: 2500,
+                                }).then(() => window.location.href = 'http://127.0.0.1:8000/index.php');                           
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Ocorreu um erro!',
+                                    text: resp.msg
+                                })
+                            }
+                        })
+                        .fail(function (xhr, status, error) {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Ocorreu um erro!',
-                                text: resp.msg
-                            })
-                        }
-                    })
-                    .fail(function (xhr, status, error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: doc == 'f' ? 'Não foi possível salvar os dados dessa pessoa!' : 'Não foi possível salvar os dados dessa empresa!'
+                                title: doc == 'f' ? 'Não foi possível salvar os dados dessa pessoa!' : 'Não foi possível salvar os dados dessa empresa!'
+                            });
                         });
-                    });
-            }
+                }
+            }, 2500);
+                
         })
     });
 }

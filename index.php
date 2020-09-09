@@ -7,12 +7,13 @@
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/spinner.css">
     <link rel="icon" href="download.png" type="image/png" sizes="16x16">
 
     <script src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.mask.js"></script>
     <script type="text/javascript" src="../js/sweetalert2.js"></script>
-
+    
 </head>
 <body>
 <?php
@@ -304,8 +305,9 @@ if(isset($_GET['id'])) {
 <script type="text/javascript" src="js/index.js"></script>
 
 <script type="text/javascript">
+        
     jQuery(document).ready(function ($) {
-
+        
         const oldValues = getFormValues();
         SetMascaras();
         mudarNomeCampos();
