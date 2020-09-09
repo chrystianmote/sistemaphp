@@ -23,10 +23,11 @@ function registrar(element) {
                         if (!resp.erro) {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Usuário criado com sucesso!',
-                                text: resp.msg,
+                                title: resp.msg,
+                                text: 'Você será automáticamente logado!',
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 3500,
+                                timerProgressBar: true,
                             }).then(()=> window.location.href = 'http://127.0.0.1:8000/index.php');                           
                         } else {
                             Swal.fire({

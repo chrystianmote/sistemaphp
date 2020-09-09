@@ -30,7 +30,8 @@ if (isset($_POST['login'])) {
                         icon: 'success',
                         title: 'Login efetuado com sucesso!',
                         showConfirmButton: false,
-                        timer: 1000
+                        timer: 2500,
+                        timerProgressBar: true,
                     }).then(() => window.location.href = 'http://127.0.0.1:8000/index.php');
                 </script>";
             session_start();
