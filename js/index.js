@@ -189,7 +189,8 @@ function salvar(element) {
                                 title: cpf ? 'Pessoa criada com sucesso!': 'Empresa criada com sucesso!',
                                 text: resp.msg,
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 2500,
+                                timerProgressBar: true,
                             }).then(() => window.location.href = 'http://127.0.0.1:8000/index.php');                           
                         } else {
                             Swal.fire({
@@ -260,7 +261,7 @@ function update(element) {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Sim, pode atualizar!'
+            confirmButtonText: 'Sim, pode atualizar!',
         }).then((result) => {
             if (result.value) {
                 $.post(`http://127.0.0.1:8000/dados/update.php`, data)
@@ -273,7 +274,8 @@ function update(element) {
                                 title: cpf ? 'Os dados dessa pessoa foram atualizado com sucesso!': 'Os dados dessa empresa foram atualizado com sucesso!',
                                 text: resp.msg,
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 3500,
+                                timerProgressBar: true,
                             }).then(() => window.location.href = 'http://127.0.0.1:8000/list.php');
                         } else {
                             Swal.fire({
