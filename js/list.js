@@ -34,7 +34,8 @@ function deleteButton(element) {
                                 title: 'Deletado!',
                                 text: resp.msg,
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 3000,
+                                timerProgressBar: true,
                             }).then(() => window.location.href = 'http://127.0.0.1:8000/list.php');
                         }
                     })
