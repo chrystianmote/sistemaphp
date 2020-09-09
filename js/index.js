@@ -36,6 +36,24 @@ function cep() {
     })
 }
 
+function changeForm(oldValues) {
+    $("form :input").change(function() {
+        let change = false;
+        const data = getFormValues();
+        for (let key of Object.keys(data)) {
+            if(data[key] != oldValues[key]) {
+                change = true;
+                break;
+            }
+        }
+        if(change) {
+            $("button[name='atualizar']").removeAttr("disabled");
+        } else {
+            $("button[name='atualizar']").attr("disabled", true);
+        }
+    });
+}
+
 function logout(element) {
     element.on('click', function (event) {
         event.preventDefault();
@@ -123,6 +141,17 @@ function mudarNomeCampos() {
             $("#documento").mask('00.000.000/0000-00');
         }
     });
+}
+
+function getFormValues() {
+    let data = {};
+    $("input").serializeArray().forEach(element => {
+        if(element.name != "cep") {
+            data[element.name] = element.value;
+        }
+    });
+    data['uf'] = $("option[selected='selected']").val();
+    return data;
 }
 
 function salvar(element) {
@@ -245,7 +274,7 @@ function update(element) {
                                 text: resp.msg,
                                 showConfirmButton: false,
                                 timer: 1500
-                            }).then(() => window.location.href = 'http://127.0.0.1:8000/index.php');
+                            }).then(() => window.location.href = 'http://127.0.0.1:8000/list.php');
                         } else {
                             Swal.fire({
                                 icon: 'error',

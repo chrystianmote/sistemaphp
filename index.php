@@ -288,7 +288,7 @@ if(isset($_GET['id'])) {
         <div class="form-group row">
             <div class="col-sm-6 d-flex justify-content-end">
                 <?php if(isset($_GET['id'])) {
-                        echo '<button type="submit" name="atualizar" class="btn btn-secondary">Atualizar</button>';    
+                        echo '<button type="submit" name="atualizar" disabled class="btn btn-secondary">Atualizar</button>';    
                       } else {
                         echo '<button type="submit" name="salvar" class="btn btn-primary">Cadastrar</button>'; 
                       } ?>
@@ -306,6 +306,7 @@ if(isset($_GET['id'])) {
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
 
+        const oldValues = getFormValues();
         SetMascaras();
         mudarNomeCampos();
         cep();
@@ -317,6 +318,7 @@ if(isset($_GET['id'])) {
         salvar($("button[name='salvar']"));
         select($("select"));
         update($("button[name='atualizar']"));
+        changeForm(oldValues);
     });
 </script>
 

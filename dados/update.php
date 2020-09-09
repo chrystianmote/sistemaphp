@@ -24,7 +24,11 @@
                     $resp['msg'] = "Os dados da empresa $nome foram atualizada com sucesso!";
                 } else {
                     $resp['erro'] = true;
-                    $resp['msg'] = "Não foi possível atualizar os dados da empresa $nome!";
+                    if(strlen($numero) > 4) {
+                        $resp['msg'] = "O campo Número só pode armazernar até 4 algoritmos!";
+                    } else {
+                        $resp['msg'] = "Não foi possível atualizar os dados da empresa $nome!";
+                    }
                 }
             } else if (strlen($documento) == 14) {
                 $id = BDUtil::UpdatePessoa($_POST['id'], $nome, $documento, $email, $telefone, $endereco, $numero, $bairro, $cidade, $uf);
@@ -34,7 +38,11 @@
                     $resp['msg'] = "Os dados da pessoa $nome foram atualizada com sucesso!";
                 } else {
                     $resp['erro'] = true;
-                    $resp['msg'] = "Não foi possível atualizar os dados da pessoa $nome!";
+                    if(strlen($numero) > 4) {
+                        $resp['msg'] = "O campo Número só pode armazernar até 4 algoritmos!";
+                    } else {
+                        $resp['msg'] = "Não foi possível atualizar os dados da pessoa $nome!";
+                    }
                 }
                 
             }

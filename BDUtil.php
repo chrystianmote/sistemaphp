@@ -73,7 +73,7 @@ class BDUtil
             VALUES ('$nome' , '$documento', '$email', '$celular', '$endereco', $numero, '$bairro', '$cidade', '$uf')";
 
             $resultado = $conn->query($sql);
-
+            
             if ($resultado->rowCount() == 0) {
                 return false;
             } else {
@@ -132,7 +132,6 @@ class BDUtil
             $resultado = $conn->query($sql);
 
             if ($resultado->rowCount() == 0) {
-                
                 return false;
             } else {
 
