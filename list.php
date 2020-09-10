@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/list.css">
+    <link rel="stylesheet" href="css/spinner.css">
     <link rel="icon" href="download.png" type="image/png" sizes="16x16">
 
     <script src="/js/jquery.min.js"></script>
