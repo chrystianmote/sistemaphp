@@ -183,7 +183,7 @@ function salvar(element) {
                 background: "rgba(0,0,0,0)",
                 showConfirmButton: false,
                 timer: 2500
-            })
+            });
             setTimeout(function() {
                 if (result.value) {
                     $.post(`http://127.0.0.1:8000/dados/create.php`, data)
@@ -271,32 +271,53 @@ function update(element) {
             confirmButtonText: 'Sim, pode atualizar!',
         }).then((result) => {
             if (result.value) {
+                Swal.fire({
+                    html: "<div class='mySpinner'><div class='half-circle-spinner'><div class='circle circle-1'></div> <div class='circle circle-2'></div></div></div>",
+                    background: "rgba(0,0,0,0)",
+                    showConfirmButton: false,
+                    timer: 2500
+                });
                 $.post(`http://127.0.0.1:8000/dados/update.php`, data)
                     .done(function (msg) {
-
-                        const resp = JSON.parse(msg);
-                        if (!resp.erro) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: cpf ? 'Os dados dessa pessoa foram atualizado com sucesso!': 'Os dados dessa empresa foram atualizado com sucesso!',
-                                text: resp.msg,
-                                showConfirmButton: false,
-                                timer: 3500,
-                                timerProgressBar: true,
-                            }).then(() => window.location.href = 'http://127.0.0.1:8000/list.php');
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Ocorreu um erro!',
-                                text: resp.msg,
-                            })
-                        }
+                        Swal.fire({
+                            html: "<div class='mySpinner'><div class='half-circle-spinner'><div class='circle circle-1'></div> <div class='circle circle-2'></div></div></div>",
+                            background: "rgba(0,0,0,0)",
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                        setTimeout(function() {
+                            const resp = JSON.parse(msg);
+                            if (!resp.erro) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: cpf ? 'Os dados dessa pessoa foram atualizado com sucesso!': 'Os dados dessa empresa foram atualizado com sucesso!',
+                                    text: resp.msg,
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                }).then(() => window.location.href = 'http://127.0.0.1:8000/list.php');
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Ocorreu um erro!',
+                                    text: resp.msg,
+                                })
+                            }
+                        }, 2500);
                     })
                     .fail(function (xhr, status, error) {
                         Swal.fire({
-                            icon: 'error',
-                            title: doc == 'f' ? 'Não foi possível atualizar os dados dessa pessoa!' : 'Não foi possível atualizar os dados dessa empresa!'
-                        })
+                            html: "<div class='mySpinner'><div class='half-circle-spinner'><div class='circle circle-1'></div> <div class='circle circle-2'></div></div></div>",
+                            background: "rgba(0,0,0,0)",
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                        setTimeout(function() {
+                            Swal.fire({
+                                icon: 'error',
+                                title: doc == 'f' ? 'Não foi possível atualizar os dados dessa pessoa!' : 'Não foi possível atualizar os dados dessa empresa!'
+                            })
+                        }, 2500)
                     });
             }
         })
