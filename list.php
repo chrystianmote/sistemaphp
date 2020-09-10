@@ -52,17 +52,27 @@
                 try {
                     $pessoas = BDUtil::GetPessoas();
                     $empresas = BDUtil::GetEmpresas();
-
-                    if($pessoas['erro']) {
-                        echo  "<script type='text/javascript'>
+                    $html = "\"<div class='mySpinner'><div class='half-circle-spinner'><div class='circle circle-1'></div> <div class='circle circle-2'></div></div></div>\"";
+                    echo  "<script type='text/javascript'>
                                 Swal.fire({
-                                    position: 'bottom-end',
+                                    html: $html,
+                                    background: 'rgba(0,0,0,0)',
                                     timer: 2000,
-                                    timerProgressBar: true,
-                                    title: '{$pessoas['msg']}',
-                                    showCloseButton: true,
                                     showConfirmButton: false
                                 });
+                            </script>";
+                    if($pessoas['erro']) {
+                        echo  "<script type='text/javascript'>
+                                setTimeout(function() {
+                                    Swal.fire({
+                                        position: 'bottom-end',
+                                        timer: 2000,
+                                        timerProgressBar: true,
+                                        title: '{$pessoas['msg']}',
+                                        showCloseButton: true,
+                                        showConfirmButton: false
+                                    });
+                                }, 2000);
                             </script>";
                     } else {
                         for($i = 0; $i < count($pessoas['msg']);$i++) {
@@ -108,14 +118,16 @@
 
                     if ($empresas['erro']) {
                         echo  "<script type='text/javascript'>
-                                    Swal.fire({
-                                        position: 'bottom-end',
-                                        timer: 2000,
-                                        timerProgressBar: true,
-                                        title: '{$empresas['msg']}',
-                                        showCloseButton: true,
-                                        showConfirmButton: false
-                                    });
+                        setTimeout(function() {
+                            Swal.fire({
+                                position: 'bottom-end',
+                                timer: 2000,
+                                timerProgressBar: true,
+                                title: '{$empresas['msg']}',
+                                showCloseButton: true,
+                                showConfirmButton: false
+                            });
+                        }, 2000)
                                 </script>"; 
                     } else {
                         for($i = 0; $i < count($empresas['msg']);$i++) {

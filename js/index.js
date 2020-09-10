@@ -179,7 +179,14 @@ function salvar(element) {
             confirmButtonText: 'Sim, pode salvar!',
         }).then((result) => {
             Swal.fire({
-                html: "<div class='mySpinner'><div class='half-circle-spinner'><div class='circle circle-1'></div> <div class='circle circle-2'></div></div></div>",
+                html: "<div class='mySpinner'>\
+                            <div class='half-circle-spinner'>\
+                                <div class='circle circle-1'>\
+                                </div>\
+                                <div class='circle circle-2'>\
+                                </div>\
+                            </div>\
+                        </div>",
                 background: "rgba(0,0,0,0)",
                 showConfirmButton: false,
                 timer: 2500
